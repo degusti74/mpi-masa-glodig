@@ -1,0 +1,2336 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ragam Masalah Sosial Akibat Globalisasi dan Era Digital</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome CDN v6.4.0 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Fredoka & Nunito (Gaya Kartun Cerah & Rounded) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Nunito"', 'sans-serif'],
+                        display: ['"Fredoka"', 'sans-serif'],
+                        mono: ['"Fredoka"', 'sans-serif'],
+                    },
+                    colors: {
+                        pop: {
+                            yellow: '#FACC15',
+                            orange: '#FB923C',
+                            pink: '#F472B6',
+                            purple: '#A855F7',
+                            blue: '#38BDF8',
+                            green: '#4ADE80',
+                            cream: '#FFFDF5',
+                            ink: '#1E293B'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Gaya Kartun Cerah (Bouncy Pop UI, Rounded Besar, Tombol Timbul 3D) */
+        body {
+            background-color: #FEF9C3;
+            background-image: 
+                radial-gradient(#FDE047 2.5px, transparent 2.5px), 
+                radial-gradient(#BAE6FD 2.5px, #FEF9C3 2.5px);
+            background-size: 48px 48px;
+            background-position: 0 0, 24px 24px;
+            color: #1E293B;
+            font-family: 'Nunito', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .font-cartoon {
+            font-family: 'Fredoka', sans-serif;
+            letter-spacing: 0.01em;
+        }
+
+        /* Panel Utama Kartun */
+        .glass-panel {
+            background: #FFFFFF;
+            border: 4px solid #1E293B;
+            border-radius: 2rem;
+            box-shadow: 0 10px 0 #1E293B;
+        }
+
+        /* Kartu Kartun Bouncy */
+        .glass-card {
+            background: #FFFFFF;
+            border: 3.5px solid #1E293B;
+            border-radius: 1.75rem;
+            box-shadow: 0 7px 0 #1E293B;
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 12px 0 #1E293B;
+        }
+
+        .glass-card:active {
+            transform: translateY(3px);
+            box-shadow: 0 3px 0 #1E293B;
+        }
+
+        /* Tombol Bouncy 3D */
+        .btn-bouncy {
+            border: 3px solid #1E293B;
+            border-radius: 1.25rem;
+            box-shadow: 0 5px 0 #1E293B;
+            font-family: 'Fredoka', sans-serif;
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .btn-bouncy:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 0 #1E293B;
+        }
+
+        .btn-bouncy:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 #1E293B;
+        }
+
+        /* Flip Card Styles untuk Pertanyaan Pemantik */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform-style: preserve-3d;
+        }
+        .flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 1.75rem;
+            border: 4px solid #1E293B;
+            box-shadow: 0 8px 0 #1E293B;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+
+        /* Custom Scrollbar Ceria */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FEF08A;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #F472B6;
+            border: 2px solid #1E293B;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #EC4899;
+        }
+
+        /* Animasi Perpindahan Halaman Bouncy */
+        .spa-section {
+            display: none;
+            animation: bounceIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        .spa-section.active {
+            display: block;
+        }
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.95) translateY(15px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* Range Slider Kartun Besar */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            height: 14px;
+            border-radius: 999px;
+            background: #E2E8F0;
+            border: 2.5px solid #1E293B;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 28px;
+            width: 28px;
+            border-radius: 50%;
+            background: #FACC15;
+            border: 3px solid #1E293B;
+            margin-top: -9px;
+            cursor: pointer;
+            box-shadow: 0 3px 0 #1E293B;
+            transition: transform 0.15s ease;
+        }
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+            background: #FB923C;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-pink-400 selection:text-white">
+
+    <!-- 1. HEADER & NAVIGASI -->
+    <header class="sticky top-0 z-50 bg-sky-300 border-b-4 border-slate-900 shadow-[0_6px_0_#1e293b]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-24 flex items-center justify-between gap-3">
+            <!-- Brand & Title -->
+            <div class="flex items-center gap-3.5 cursor-pointer group" onclick="navigateTo('home')">
+                <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-yellow-400 border-3 border-slate-900 flex items-center justify-center shadow-[0_4px_0_#1e293b] group-hover:rotate-6 transition shrink-0" style="border: 3px solid #1E293B;">
+                    <i class="fa-solid fa-earth-asia text-slate-900 text-2xl sm:text-3xl"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="px-2.5 py-0.5 text-xs font-cartoon uppercase tracking-wide bg-pink-400 text-slate-900 border-2 border-slate-900 rounded-full font-bold shadow-[0_2px_0_#1e293b]">
+                            SMA • Kelas XII / Sem 1
+                        </span>
+                        <span class="hidden md:inline-block px-2.5 py-0.5 text-xs font-cartoon bg-lime-300 text-slate-900 border-2 border-slate-900 rounded-full font-bold shadow-[0_2px_0_#1e293b]">
+                            Sosiologi Seru!
+                        </span>
+                    </div>
+                    <h1 class="text-base sm:text-xl md:text-2xl font-bold text-slate-900 tracking-tight line-clamp-1 mt-1 drop-shadow-sm">
+                        Ragam Masalah Sosial Akibat Globalisasi dan Era Digital
+                    </h1>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center gap-2.5 sm:gap-3">
+                <button id="btnBackHome" onclick="navigateTo('home')" class="hidden items-center gap-2 px-4 py-2.5 bg-orange-400 hover:bg-orange-300 text-slate-900 text-xs sm:text-sm font-bold btn-bouncy">
+                    <i class="fa-solid fa-house text-slate-900 text-base"></i>
+                    <span class="hidden sm:inline">Menu Utama</span>
+                </button>
+
+                <button id="btnAudioToggle" onclick="toggleAudio()" class="flex items-center gap-2 px-4 py-2.5 bg-lime-400 hover:bg-lime-300 text-slate-900 text-xs sm:text-sm font-bold btn-bouncy" title="Sakelar Efek Suara Synthesizer">
+                    <i id="iconAudio" class="fa-solid fa-volume-high text-base"></i>
+                    <span id="textAudio" class="hidden md:inline">Suara: ON</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Secondary Quick Navigation Pill Bar -->
+        <div class="bg-amber-100 border-t-4 border-slate-900 overflow-x-auto">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 flex items-center gap-2 sm:gap-2.5 text-xs sm:text-sm whitespace-nowrap">
+                <button onclick="navigateTo('home')" data-nav="home" class="nav-pill px-4 py-2 rounded-2xl font-bold bg-pink-400 text-slate-900 border-2 border-slate-900 shadow-[0_3px_0_#1e293b] transition">
+                    <i class="fa-solid fa-compass mr-1"></i> Beranda
+                </button>
+                <button onclick="navigateTo('tujuan')" data-nav="tujuan" class="nav-pill px-4 py-2 rounded-2xl font-bold bg-white text-slate-800 border-2 border-slate-900 hover:bg-yellow-200 transition">
+                    <i class="fa-solid fa-bullseye mr-1"></i> 1. Tujuan
+                </button>
+                <button onclick="navigateTo('pemantik')" data-nav="pemantik" class="nav-pill px-4 py-2 rounded-2xl font-bold bg-white text-slate-800 border-2 border-slate-900 hover:bg-yellow-200 transition">
+                    <i class="fa-solid fa-bolt mr-1"></i> 2. Pemantik
+                </button>
+                <button onclick="navigateTo('materi')" data-nav="materi" class="nav-pill px-4 py-2 rounded-2xl font-bold bg-white text-slate-800 border-2 border-slate-900 hover:bg-yellow-200 transition">
+                    <i class="fa-solid fa-book-open mr-1"></i> 3. Materi & Simulasi
+                </button>
+                <button onclick="navigateTo('games')" data-nav="games" class="nav-pill px-4 py-2 rounded-2xl font-bold bg-white text-slate-800 border-2 border-slate-900 hover:bg-yellow-200 transition">
+                    <i class="fa-solid fa-gamepad mr-1"></i> 4. Lab Klasifikasi
+                </button>
+                <button onclick="navigateTo('kuis')" data-nav="kuis" class="nav-pill px-4 py-2 rounded-2xl font-bold bg-white text-slate-800 border-2 border-slate-900 hover:bg-yellow-200 transition">
+                    <i class="fa-solid fa-list-check mr-1"></i> 5. Kuis TKA (20 Soal)
+                </button>
+                <button onclick="navigateTo('refleksi')" data-nav="refleksi" class="nav-pill px-4 py-2 rounded-2xl font-bold bg-white text-slate-800 border-2 border-slate-900 hover:bg-yellow-200 transition">
+                    <i class="fa-solid fa-comment-dots mr-1"></i> 6. Papan Refleksi
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
+
+        <!-- 2. MENU UTAMA (HERO SECTION) -->
+        <section id="sec-home" class="spa-section active space-y-10">
+            <!-- Hero Banner -->
+            <div class="relative overflow-hidden glass-panel bg-gradient-to-br from-sky-200 via-yellow-100 to-pink-200 p-6 sm:p-10 lg:p-12">
+                <!-- Dekorasi Awan/Bintang Kartun -->
+                <div class="absolute -right-10 -top-10 w-44 h-44 bg-yellow-300 rounded-full border-4 border-slate-900 opacity-60 pointer-events-none"></div>
+                <div class="absolute -left-10 -bottom-10 w-36 h-36 bg-pink-300 rounded-full border-4 border-slate-900 opacity-60 pointer-events-none"></div>
+
+                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-7 space-y-5">
+                        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-yellow-300 border-2 border-slate-900 text-slate-900 text-xs sm:text-sm font-bold shadow-[0_3px_0_#1e293b]">
+                            <span class="w-3 h-3 rounded-full bg-pink-500 border border-slate-900 animate-bounce"></span>
+                            PETUALANGAN SOSIOLOGI INTERAKTIF • KELAS XII
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight">
+                            Ragam Masalah Sosial Akibat <span class="px-2 bg-pink-400 text-slate-900 rounded-2xl border-2 border-slate-900 inline-block transform -rotate-1">Globalisasi dan Era Digital</span>
+                        </h2>
+                        <p class="text-slate-800 font-semibold text-sm sm:text-base leading-relaxed bg-white/80 p-4 rounded-2xl border-2 border-slate-900">
+                            Yuk, amati lingkungan di sekitar kita! Pelajari bagaimana arus globalisasi dan dunia digital memunculkan fenomena seru sekaligus menantang: mulai dari <strong>Neokolonialisme</strong>, <strong>Gegar & Ketertinggalan Budaya</strong>, <strong>Konsumerisme-Hedonisme</strong>, <strong>Kerusakan Lingkungan</strong>, hingga <strong>Kejahatan Siber</strong>!
+                        </p>
+                        <div class="flex flex-wrap items-center gap-4 pt-2">
+                            <button onclick="navigateTo('tujuan')" class="px-7 py-4 bg-pink-400 hover:bg-pink-300 text-slate-900 font-bold text-base sm:text-lg btn-bouncy flex items-center gap-3">
+                                <span>🚀 Mulai Belajar Sekarang!</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right Visual Graphic -->
+                    <div class="lg:col-span-5">
+                        <div class="glass-card bg-white p-5 space-y-4">
+                            <div class="flex items-center justify-between border-b-3 border-slate-900 pb-3" style="border-bottom: 3px solid #1E293B;">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-4 h-4 rounded-full bg-rose-400 border-2 border-slate-900"></span>
+                                    <span class="w-4 h-4 rounded-full bg-yellow-400 border-2 border-slate-900"></span>
+                                    <span class="w-4 h-4 rounded-full bg-lime-400 border-2 border-slate-900"></span>
+                                </div>
+                                <span class="text-xs font-cartoon font-bold px-2.5 py-0.5 bg-purple-200 border-2 border-slate-900 rounded-full text-slate-900">RADAR SOSIOLOGI XII</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3 text-xs">
+                                <div class="p-3.5 rounded-2xl bg-sky-100 border-2 border-slate-900 shadow-[0_4px_0_#1e293b]">
+                                    <i class="fa-solid fa-building-columns text-sky-600 text-2xl mb-1.5"></i>
+                                    <div class="font-bold text-slate-900 text-sm">1. Neokolonialisme</div>
+                                    <p class="text-slate-700 font-semibold text-[11px] mt-0.5">Dominasi ekonomi & ekspor-impor non-militer.</p>
+                                </div>
+                                <div class="p-3.5 rounded-2xl bg-amber-100 border-2 border-slate-900 shadow-[0_4px_0_#1e293b]">
+                                    <i class="fa-solid fa-masks-theater text-amber-600 text-2xl mb-1.5"></i>
+                                    <div class="font-bold text-slate-900 text-sm">2. Budaya</div>
+                                    <p class="text-slate-700 font-semibold text-[11px] mt-0.5">Culture Shock & Cultural Lag masyarakat.</p>
+                                </div>
+                                <div class="p-3.5 rounded-2xl bg-pink-100 border-2 border-slate-900 shadow-[0_4px_0_#1e293b]">
+                                    <i class="fa-solid fa-bag-shopping text-pink-600 text-2xl mb-1.5"></i>
+                                    <div class="font-bold text-slate-900 text-sm">3. Gaya Hidup</div>
+                                    <p class="text-slate-700 font-semibold text-[11px] mt-0.5">Konsumerisme (wants vs needs) & Hedonisme.</p>
+                                </div>
+                                <div class="p-3.5 rounded-2xl bg-lime-100 border-2 border-slate-900 shadow-[0_4px_0_#1e293b]">
+                                    <i class="fa-solid fa-user-secret text-emerald-600 text-2xl mb-1.5"></i>
+                                    <div class="font-bold text-slate-900 text-sm">4 & 5. Alam & Siber</div>
+                                    <p class="text-slate-700 font-semibold text-[11px] mt-0.5">Eksploitasi MNC & Phishing, Malware, DoS, Bullying.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grid Kartu Navigasi Cepat -->
+            <div>
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5">
+                    <h3 class="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2.5">
+                        <span class="w-10 h-10 rounded-xl bg-orange-400 border-2 border-slate-900 flex items-center justify-center shadow-[0_3px_0_#1e293b]">
+                            <i class="fa-solid fa-map-location-dot text-slate-900"></i>
+                        </span>
+                        Peta Petualangan Modul Belajar
+                    </h3>
+                    <span class="text-xs sm:text-sm text-slate-800 font-bold bg-white px-3.5 py-1.5 rounded-full border-2 border-slate-900 shadow-[0_3px_0_#1e293b] self-start">
+                        👆 Klik kartu warna-warni untuk membuka modul!
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <!-- Card 1 -->
+                    <div onclick="navigateTo('tujuan')" class="glass-card bg-sky-100 p-6 cursor-pointer group">
+                        <div class="w-14 h-14 rounded-2xl bg-sky-400 border-3 border-slate-900 flex items-center justify-center text-slate-900 shadow-[0_4px_0_#1e293b] group-hover:scale-110 transition mb-4" style="border: 3px solid #1E293B;">
+                            <i class="fa-solid fa-bullseye text-2xl"></i>
+                        </div>
+                        <span class="px-2.5 py-0.5 rounded-full bg-white border-2 border-slate-900 text-xs font-cartoon font-bold text-slate-900">MODUL 01</span>
+                        <h4 class="text-xl font-bold text-slate-900 mt-2">Tujuan Pembelajaran</h4>
+                        <p class="text-xs sm:text-sm text-slate-700 font-semibold mt-1.5 leading-relaxed">3 target indikator kompetensi pengamatan masalah sosial era globalisasi dan digital.</p>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div onclick="navigateTo('pemantik')" class="glass-card bg-amber-100 p-6 cursor-pointer group">
+                        <div class="w-14 h-14 rounded-2xl bg-yellow-400 border-3 border-slate-900 flex items-center justify-center text-slate-900 shadow-[0_4px_0_#1e293b] group-hover:scale-110 transition mb-4" style="border: 3px solid #1E293B;">
+                            <i class="fa-solid fa-lightbulb text-2xl"></i>
+                        </div>
+                        <span class="px-2.5 py-0.5 rounded-full bg-white border-2 border-slate-900 text-xs font-cartoon font-bold text-slate-900">MODUL 02</span>
+                        <h4 class="text-xl font-bold text-slate-900 mt-2">Pertanyaan Pemantik</h4>
+                        <p class="text-xs sm:text-sm text-slate-700 font-semibold mt-1.5 leading-relaxed">2 kartu lipat interaktif (Flip Card) kasus keseharian untuk memicu rasa ingin tahu!</p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div onclick="navigateTo('materi')" class="glass-card bg-teal-100 p-6 cursor-pointer group">
+                        <div class="w-14 h-14 rounded-2xl bg-teal-400 border-3 border-slate-900 flex items-center justify-center text-slate-900 shadow-[0_4px_0_#1e293b] group-hover:scale-110 transition mb-4" style="border: 3px solid #1E293B;">
+                            <i class="fa-solid fa-microchip text-2xl"></i>
+                        </div>
+                        <span class="px-2.5 py-0.5 rounded-full bg-white border-2 border-slate-900 text-xs font-cartoon font-bold text-slate-900">MODUL 03</span>
+                        <h4 class="text-xl font-bold text-slate-900 mt-2">Materi & Simulasi Lab</h4>
+                        <p class="text-xs sm:text-sm text-slate-700 font-semibold mt-1.5 leading-relaxed">5 sub-tab materi bergambar + Simulasi Kalkulator Dampak Sosial & Detektor Siber.</p>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div onclick="navigateTo('games')" class="glass-card bg-purple-100 p-6 cursor-pointer group">
+                        <div class="w-14 h-14 rounded-2xl bg-purple-400 border-3 border-slate-900 flex items-center justify-center text-slate-900 shadow-[0_4px_0_#1e293b] group-hover:scale-110 transition mb-4" style="border: 3px solid #1E293B;">
+                            <i class="fa-solid fa-puzzle-piece text-2xl"></i>
+                        </div>
+                        <span class="px-2.5 py-0.5 rounded-full bg-white border-2 border-slate-900 text-xs font-cartoon font-bold text-slate-900">MODUL 04</span>
+                        <h4 class="text-xl font-bold text-slate-900 mt-2">Evaluasi & Mini Games</h4>
+                        <p class="text-xs sm:text-sm text-slate-700 font-semibold mt-1.5 leading-relaxed">Permainan sortir 2 keranjang: Masalah Struktural-Kultural vs Kejahatan Siber.</p>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div onclick="navigateTo('kuis')" class="glass-card bg-lime-100 p-6 cursor-pointer group">
+                        <div class="w-14 h-14 rounded-2xl bg-lime-400 border-3 border-slate-900 flex items-center justify-center text-slate-900 shadow-[0_4px_0_#1e293b] group-hover:scale-110 transition mb-4" style="border: 3px solid #1E293B;">
+                            <i class="fa-solid fa-award text-2xl"></i>
+                        </div>
+                        <span class="px-2.5 py-0.5 rounded-full bg-white border-2 border-slate-900 text-xs font-cartoon font-bold text-slate-900">MODUL 05</span>
+                        <h4 class="text-xl font-bold text-slate-900 mt-2">Kuis TKA (20 Soal A-E)</h4>
+                        <p class="text-xs sm:text-sm text-slate-700 font-semibold mt-1.5 leading-relaxed">20 soal standar TKA (Pilihan Ganda Biasa & Pilihan Ganda Kompleks 5 opsi A–E) + pembahasan!</p>
+                    </div>
+
+                    <!-- Card 6 -->
+                    <div onclick="navigateTo('refleksi')" class="glass-card bg-pink-100 p-6 cursor-pointer group">
+                        <div class="w-14 h-14 rounded-2xl bg-pink-400 border-3 border-slate-900 flex items-center justify-center text-slate-900 shadow-[0_4px_0_#1e293b] group-hover:scale-110 transition mb-4" style="border: 3px solid #1E293B;">
+                            <i class="fa-solid fa-note-sticky text-2xl"></i>
+                        </div>
+                        <span class="px-2.5 py-0.5 rounded-full bg-white border-2 border-slate-900 text-xs font-cartoon font-bold text-slate-900">MODUL 06</span>
+                        <h4 class="text-xl font-bold text-slate-900 mt-2">Papan Refleksi Kolaboratif</h4>
+                        <p class="text-xs sm:text-sm text-slate-700 font-semibold mt-1.5 leading-relaxed">Tempelkan catatan warna-warni hasil pengamatan masalah sosial di sekitarmu!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. TUJUAN PEMBELAJARAN -->
+        <section id="sec-tujuan" class="spa-section space-y-6">
+            <div class="glass-panel bg-white p-6 sm:p-10">
+                <div class="max-w-3xl">
+                    <span class="px-3 py-1 rounded-full bg-sky-300 border-2 border-slate-900 text-xs font-cartoon uppercase font-bold text-slate-900 shadow-[0_2px_0_#1e293b]">
+                        🎯 Kompetensi Inti & Tujuan Pembelajaran
+                    </span>
+                    <h2 class="text-2xl sm:text-4xl font-bold text-slate-900 mt-3">Target Capaian Pembelajaran</h2>
+                    <p class="text-slate-800 font-semibold text-sm sm:text-base mt-2 leading-relaxed bg-yellow-100 p-4 rounded-2xl border-2 border-slate-900">
+                        <strong>Tujuan Umum:</strong> Murid mampu mendeskripsikan ragam masalah sosial akibat pengaruh globalisasi pada era digital melalui pengamatan kasus di lingkungan sekitar.
+                    </p>
+                </div>
+
+                <!-- 3 Kartu Ringkas Target Kompetensi/Indikator -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                    <!-- Indikator 1 -->
+                    <div class="glass-card bg-sky-100 p-6 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="px-3 py-1 rounded-xl bg-sky-400 border-2 border-slate-900 text-slate-900 font-cartoon text-xs font-bold shadow-[0_2px_0_#1e293b]">INDIKATOR 01</span>
+                                <div class="w-12 h-12 rounded-2xl bg-white border-2 border-slate-900 flex items-center justify-center">
+                                    <i class="fa-solid fa-scale-unbalanced text-2xl text-sky-600"></i>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-2">Analisis Masalah Struktural & Ekologis</h3>
+                            <p class="text-slate-800 font-semibold text-xs sm:text-sm leading-relaxed">
+                                Mengidentifikasi praktik <strong>Neokolonialisme</strong> (ketergantungan ekspor komoditas primer serta impor barang jadi, modal, dan teknologi menurut Dipoyudo, 2023) serta <strong>Kerusakan Lingkungan</strong> akibat aktivitas ekspansif dan eksploitatif perusahaan multinasional sejak 1970 (Maravel, 2023).
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t-2 border-slate-900/20 text-xs font-cartoon font-bold text-slate-700">
+                            📌 Fokus: Ekonomi-Politik & Lingkungan
+                        </div>
+                    </div>
+
+                    <!-- Indikator 2 -->
+                    <div class="glass-card bg-pink-100 p-6 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="px-3 py-1 rounded-xl bg-pink-400 border-2 border-slate-900 text-slate-900 font-cartoon text-xs font-bold shadow-[0_2px_0_#1e293b]">INDIKATOR 02</span>
+                                <div class="w-12 h-12 rounded-2xl bg-white border-2 border-slate-900 flex items-center justify-center">
+                                    <i class="fa-solid fa-masks-theater text-2xl text-pink-600"></i>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-2">Evaluasi Masalah Kultural & Gaya Hidup</h3>
+                            <p class="text-slate-800 font-semibold text-xs sm:text-sm leading-relaxed">
+                                Membedakan fenomena <strong>Gegar Budaya (Culture Shock)</strong> dan <strong>Ketertinggalan Budaya (Cultural Lag)</strong>, serta menganalisis faktor internal-eksternal pemicu <strong>Hedonisme</strong> (Prajabti, 2017) dan <strong>Konsumerisme</strong> yang mengutamakan keinginan (<em>wants</em>) di atas kebutuhan (<em>needs</em>) hingga memicu kecemasan psikologis.
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t-2 border-slate-900/20 text-xs font-cartoon font-bold text-slate-700">
+                            📌 Fokus: Pergeseran Budaya & Psikososial
+                        </div>
+                    </div>
+
+                    <!-- Indikator 3 -->
+                    <div class="glass-card bg-lime-100 p-6 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="px-3 py-1 rounded-xl bg-lime-400 border-2 border-slate-900 text-slate-900 font-cartoon text-xs font-bold shadow-[0_2px_0_#1e293b]">INDIKATOR 03</span>
+                                <div class="w-12 h-12 rounded-2xl bg-white border-2 border-slate-900 flex items-center justify-center">
+                                    <i class="fa-solid fa-shield-virus text-2xl text-emerald-600"></i>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-2">Klasifikasi Ragam Kejahatan Siber</h3>
+                            <p class="text-slate-800 font-semibold text-xs sm:text-sm leading-relaxed">
+                                Mendeskripsikan bentuk <strong>Kejahatan Siber (Cybercrime)</strong> di lingkungan digital (Raodia, 2019), meliputi: <strong>Pencurian Data (Phishing)</strong>, <strong>Penyebaran Malware</strong>, <strong>Serangan DoS (Denial of Service)</strong> pada server, serta <strong>Perundungan Siber (Cyberbullying)</strong>.
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t-2 border-slate-900/20 text-xs font-cartoon font-bold text-slate-700">
+                            📌 Fokus: Keamanan & Etika Ruang Siber
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex justify-end">
+                    <button onclick="navigateTo('pemantik')" class="px-6 py-3.5 bg-yellow-400 hover:bg-yellow-300 text-slate-900 font-bold text-sm sm:text-base btn-bouncy flex items-center gap-2">
+                        <span>Lanjut ke Pertanyaan Pemantik</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. PERTANYAAN PEMANTIK -->
+        <section id="sec-pemantik" class="spa-section space-y-6">
+            <div class="glass-panel bg-white p-6 sm:p-10">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                    <div>
+                        <span class="px-3 py-1 rounded-full bg-yellow-300 border-2 border-slate-900 text-xs font-cartoon uppercase font-bold text-slate-900 shadow-[0_2px_0_#1e293b]">
+                            💡 Stimulus Berpikir Kritis
+                        </span>
+                        <h2 class="text-2xl sm:text-4xl font-bold text-slate-900 mt-2">Pertanyaan Pemantik Interaktif</h2>
+                        <p class="text-slate-700 font-semibold text-sm sm:text-base mt-1">Klik pada masing-masing kartu di bawah ini untuk membalik kartu dan melihat rahasia sosiologisnya!</p>
+                    </div>
+                    <span class="px-4 py-2 rounded-2xl bg-pink-300 border-2 border-slate-900 text-slate-900 text-xs sm:text-sm font-cartoon font-bold self-start shadow-[0_3px_0_#1e293b]">
+                        <i class="fa-solid fa-hand-pointer mr-1"></i> Klik untuk Balik Kartu!
+                    </span>
+                </div>
+
+                <!-- 2 Kartu Interaktif Flip Card -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Flip Card 1 -->
+                    <div id="flipCard1" onclick="toggleFlip('flipCard1')" class="perspective-1000 h-80 sm:h-76 cursor-pointer select-none">
+                        <div class="flip-card-inner">
+                            <!-- Front -->
+                            <div class="flip-card-front bg-amber-200 p-6 flex flex-col justify-between">
+                                <div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="px-3 py-1 rounded-xl bg-white border-2 border-slate-900 text-slate-900 text-xs font-cartoon font-bold shadow-[0_2px_0_#1e293b]">🛍️ KASUS PENGAMATAN #1</span>
+                                        <span class="text-xs font-bold text-slate-800 bg-yellow-300 px-2.5 py-1 rounded-lg border-2 border-slate-900"><i class="fa-solid fa-rotate mr-1"></i> Balik Kartu</span>
+                                    </div>
+                                    <h3 class="text-lg sm:text-xl font-bold text-slate-900 mt-4">
+                                        "Mengapa Banyak Remaja Cemas Saat Ketinggalan Tren Belanja Online, Padahal Barang Lama Masih Layak Pakai?"
+                                    </h3>
+                                    <p class="text-slate-800 font-semibold text-xs sm:text-sm mt-3 leading-relaxed">
+                                        Di lingkungan sekitar kita, marak fenomena membeli gawai, pakaian, atau barang bermerek lewat aplikasi jual-beli daring hanya demi status sosial di media sosial, meski uang saku terbatas.
+                                    </p>
+                                </div>
+                                <div class="flex items-center justify-between text-xs sm:text-sm text-slate-900 font-bold pt-3 border-t-2 border-slate-900/20">
+                                    <span>🤔 Apa fenomena sosiologis di balik kasus ini?</span>
+                                    <i class="fa-solid fa-circle-chevron-right text-lg"></i>
+                                </div>
+                            </div>
+                            <!-- Back -->
+                            <div class="flip-card-back bg-pink-200 p-6 flex flex-col justify-between">
+                                <div>
+                                    <span class="px-3 py-1 rounded-xl bg-white border-2 border-slate-900 text-slate-900 text-xs font-cartoon font-bold shadow-[0_2px_0_#1e293b]">✨ PENJELASAN SOSIOLOGIS #1</span>
+                                    <h4 class="text-base sm:text-lg font-bold text-slate-900 mt-3">Konsumerisme, Hedonisme & Cultural Lag</h4>
+                                    <ul class="text-xs sm:text-sm text-slate-800 font-semibold space-y-1.5 mt-2 list-disc list-inside leading-relaxed">
+                                        <li><strong>Konsumerisme (Suciptaningsih, 2017):</strong> Pola konsumsi berlebihan yang menjadikan barang mewah sebagai ukuran kebahagiaan dan kesuksesan.</li>
+                                        <li><strong>Wants vs Needs (Nazarudin & Widiastuti, 2022):</strong> Lebih mementingkan keinginan (<em>wants</em>) daripada kebutuhan (<em>needs</em>) tanpa pertimbangan finansial, sehingga memicu <strong>kecemasan psikologis dan rasa tidak aman</strong>.</li>
+                                        <li><strong>Faktor Eksternal Hedonisme (Prajabti, 2017):</strong> Dipengaruhi teman sebaya, pergaulan, dan tren media sosial.</li>
+                                    </ul>
+                                </div>
+                                <div class="text-right text-xs text-slate-800 font-cartoon font-bold">🔄 Klik kembali untuk menutup</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Flip Card 2 -->
+                    <div id="flipCard2" onclick="toggleFlip('flipCard2')" class="perspective-1000 h-80 sm:h-76 cursor-pointer select-none">
+                        <div class="flip-card-inner">
+                            <!-- Front -->
+                            <div class="flip-card-front bg-sky-200 p-6 flex flex-col justify-between">
+                                <div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="px-3 py-1 rounded-xl bg-white border-2 border-slate-900 text-slate-900 text-xs font-cartoon font-bold shadow-[0_2px_0_#1e293b]">🌐 KASUS PENGAMATAN #2</span>
+                                        <span class="text-xs font-bold text-slate-800 bg-sky-300 px-2.5 py-1 rounded-lg border-2 border-slate-900"><i class="fa-solid fa-rotate mr-1"></i> Balik Kartu</span>
+                                    </div>
+                                    <h3 class="text-lg sm:text-xl font-bold text-slate-900 mt-4">
+                                        "Negara Kita Merdeka Secara Politik, Namun Mengapa Masih Bergantung pada Teknologi & Produk Impor Negara Maju serta Rentan Kejahatan Siber?"
+                                    </h3>
+                                    <p class="text-slate-800 font-semibold text-xs sm:text-sm mt-3 leading-relaxed">
+                                        Selain ketergantungan impor barang jadi dan modal asing, warga di sekitar kita juga sering menjadi sasaran tautan penipuan undian berhadiah atau pencurian saldo rekening di internet.
+                                    </p>
+                                </div>
+                                <div class="flex items-center justify-between text-xs sm:text-sm text-slate-900 font-bold pt-3 border-t-2 border-slate-900/20">
+                                    <span>🤔 Bagaimana sosiologi membedah dua masalah ini?</span>
+                                    <i class="fa-solid fa-circle-chevron-right text-lg"></i>
+                                </div>
+                            </div>
+                            <!-- Back -->
+                            <div class="flip-card-back bg-lime-200 p-6 flex flex-col justify-between">
+                                <div>
+                                    <span class="px-3 py-1 rounded-xl bg-white border-2 border-slate-900 text-slate-900 text-xs font-cartoon font-bold shadow-[0_2px_0_#1e293b]">✨ PENJELASAN SOSIOLOGIS #2</span>
+                                    <h4 class="text-base sm:text-lg font-bold text-slate-900 mt-3">Neokolonialisme & Kejahatan Siber (Cybercrime)</h4>
+                                    <ul class="text-xs sm:text-sm text-slate-800 font-semibold space-y-1.5 mt-2 list-disc list-inside leading-relaxed">
+                                        <li><strong>Neokolonialisme (Dipoyudo, 2023):</strong> Penjajahan gaya baru tanpa kekerasan militer, di mana negara berkembang bergantung pada ekspor komoditas primer dan mengimpor barang jadi, modal, teknologi, serta manajemen dari negara industri maju.</li>
+                                        <li><strong>Kejahatan Siber (Raodia, 2019 & Tabrani dkk., 2024):</strong> Kemudahan internet dimanfaatkan pelaku untuk melakukan <em>Phishing</em> (menyamar sebagai entitas tepercaya untuk mencuri password/rekening), <em>Malware</em>, serangan <em>DoS</em>, dan <em>Cyberbullying</em>.</li>
+                                    </ul>
+                                </div>
+                                <div class="text-right text-xs text-slate-800 font-cartoon font-bold">🔄 Klik kembali untuk menutup</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex justify-between items-center">
+                    <button onclick="navigateTo('tujuan')" class="px-5 py-3 bg-slate-200 hover:bg-slate-300 text-slate-900 text-xs sm:text-sm font-bold btn-bouncy">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> Sebelumnya
+                    </button>
+                    <button onclick="navigateTo('materi')" class="px-6 py-3.5 bg-pink-400 hover:bg-pink-300 text-slate-900 font-bold text-sm sm:text-base btn-bouncy flex items-center gap-2">
+                        <span>Eksplorasi Materi Lengkap</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. MATERI BELAJAR INTERAKTIF (SUB-TAB + SIMULASI DOM) -->
+        <section id="sec-materi" class="spa-section space-y-8">
+            <!-- Sub-Tab Navigation Header -->
+            <div class="glass-panel bg-white p-6 sm:p-10">
+                <div class="mb-6">
+                    <span class="px-3 py-1 rounded-full bg-teal-300 border-2 border-slate-900 text-xs font-cartoon uppercase font-bold text-slate-900 shadow-[0_2px_0_#1e293b]">
+                        📚 Eksplorasi Konsep Mendalam
+                    </span>
+                    <h2 class="text-2xl sm:text-4xl font-bold text-slate-900 mt-2">B. Ragam Masalah Sosial Akibat Globalisasi dan Era Digital</h2>
+                    <p class="text-slate-700 font-semibold text-sm sm:text-base mt-1">Berdasarkan penyebabnya, masalah sosial akibat globalisasi dan era digital dibedakan menjadi 5 kategori utama. Klik tombol topik warna-warni di bawah ini!</p>
+                </div>
+
+                <!-- Internal Sub-Tabs Buttons -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-6">
+                    <button onclick="switchMateriTab(1)" id="matBtn1" class="mat-tab-btn px-4 py-3.5 text-left btn-bouncy bg-yellow-300 text-slate-900">
+                        <div class="text-[11px] font-cartoon font-bold text-slate-700">TOPIK 01</div>
+                        <div class="font-bold text-xs sm:text-sm mt-0.5 truncate">1. Neokolonialisme</div>
+                    </button>
+                    <button onclick="switchMateriTab(2)" id="matBtn2" class="mat-tab-btn px-4 py-3.5 text-left btn-bouncy bg-white text-slate-800 hover:bg-sky-100">
+                        <div class="text-[11px] font-cartoon font-bold text-sky-600">TOPIK 02</div>
+                        <div class="font-bold text-xs sm:text-sm mt-0.5 truncate">2. Budaya (Shock & Lag)</div>
+                    </button>
+                    <button onclick="switchMateriTab(3)" id="matBtn3" class="mat-tab-btn px-4 py-3.5 text-left btn-bouncy bg-white text-slate-800 hover:bg-pink-100">
+                        <div class="text-[11px] font-cartoon font-bold text-pink-600">TOPIK 03</div>
+                        <div class="font-bold text-xs sm:text-sm mt-0.5 truncate">3. Konsumerisme & Hedon</div>
+                    </button>
+                    <button onclick="switchMateriTab(4)" id="matBtn4" class="mat-tab-btn px-4 py-3.5 text-left btn-bouncy bg-white text-slate-800 hover:bg-lime-100">
+                        <div class="text-[11px] font-cartoon font-bold text-emerald-600">TOPIK 04</div>
+                        <div class="font-bold text-xs sm:text-sm mt-0.5 truncate">4. Kerusakan Lingkungan</div>
+                    </button>
+                    <button onclick="switchMateriTab(5)" id="matBtn5" class="mat-tab-btn col-span-2 sm:col-span-1 px-4 py-3.5 text-left btn-bouncy bg-white text-slate-800 hover:bg-purple-100">
+                        <div class="text-[11px] font-cartoon font-bold text-purple-600">TOPIK 05</div>
+                        <div class="font-bold text-xs sm:text-sm mt-0.5 truncate">5. Kejahatan Siber</div>
+                    </button>
+                </div>
+
+                <!-- SUB-TAB 1: NEOKOLONIALISME -->
+                <div id="matContent1" class="mat-tab-content space-y-5">
+                    <div class="p-6 rounded-3xl bg-sky-100 border-4 border-slate-900 shadow-[0_6px_0_#1e293b] space-y-4">
+                        <div class="flex items-center gap-3.5">
+                            <div class="w-14 h-14 rounded-2xl bg-sky-400 border-3 border-slate-900 text-slate-900 flex items-center justify-center text-2xl shrink-0 shadow-[0_3px_0_#1e293b]" style="border: 3px solid #1E293B;">
+                                <i class="fa-solid fa-landmark-dome"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl sm:text-2xl font-bold text-slate-900">1. Neokolonialisme (Kolonialisme Gaya Baru)</h3>
+                                <p class="text-xs font-cartoon font-bold text-sky-800">📖 Referensi Kunci: Dipoyudo (2023)</p>
+                            </div>
+                        </div>
+
+                        <p class="text-slate-800 font-semibold text-sm sm:text-base leading-relaxed bg-white p-4 rounded-2xl border-2 border-slate-900">
+                            Terdapat pandangan yang menganggap globalisasi sebagai <strong>bentuk terkini dari kapitalisme</strong>, di mana negara-negara yang kuat dan kaya cenderung mengontrol ekonomi dunia, sedangkan negara-negara kecil makin tidak berdaya karena tidak mampu bersaing. Ketika dipahami sebagai <strong>liberalisasi</strong>, globalisasi memunculkan praktik neokolonialisme yang cenderung menguntungkan pihak korporat atau perusahaan besar. Akibatnya, <strong>sektor publik menjadi terpinggirkan</strong> dan manfaatnya tidak lagi dinikmati secara luas oleh masyarakat.
+                        </p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                            <div class="p-5 rounded-2xl bg-white border-3 border-slate-900 shadow-[0_4px_0_#1e293b]" style="border: 3px solid #1E293B;">
+                                <h4 class="font-bold text-slate-900 text-base mb-2"><i class="fa-solid fa-magnifying-glass-chart text-sky-600 mr-1.5"></i> Definisi & Mekanisme Dominasi</h4>
+                                <p class="text-xs sm:text-sm text-slate-800 font-semibold leading-relaxed">
+                                    <strong>Neokolonialisme</strong> merupakan konsep saat suatu negara mendominasi negara lain secara <strong>tidak langsung tanpa menggunakan kekerasan</strong>, melainkan melalui:
+                                </p>
+                                <ul class="text-xs sm:text-sm text-slate-800 font-bold list-disc list-inside mt-2 space-y-1">
+                                    <li>Hubungan bilateral</li>
+                                    <li>Pengaruh budaya</li>
+                                    <li>Bantuan ekonomi</li>
+                                </ul>
+                                <p class="text-xs sm:text-sm text-rose-700 font-bold mt-2 bg-rose-100 p-2.5 rounded-xl border-2 border-slate-900">
+                                    ⚠️ Dampaknya membahayakan kedaulatan dan kemerdekaan karena negara yang didominasi menjadi sangat bergantung pada negara pendominasi.
+                                </p>
+                            </div>
+
+                            <div class="p-5 rounded-2xl bg-white border-3 border-slate-900 shadow-[0_4px_0_#1e293b]" style="border: 3px solid #1E293B;">
+                                <h4 class="font-bold text-slate-900 text-base mb-2"><i class="fa-solid fa-arrows-left-right text-amber-600 mr-1.5"></i> Pola Ketergantungan Ekonomi (Dipoyudo, 2023)</h4>
+                                <p class="text-xs sm:text-sm text-slate-800 font-semibold leading-relaxed">
+                                    Negara imperialis Barat memberikan <strong>kemerdekaan politik</strong> kepada negara bekas jajahan, tetapi tetap mempertahankan <strong>kendali atas perekonomian</strong> melalui pola warisan masa kolonial:
+                                </p>
+                                <div class="mt-3 space-y-2 text-xs sm:text-sm">
+                                    <div class="p-2.5 rounded-xl bg-amber-100 border-2 border-slate-900 text-slate-900 font-semibold">
+                                        📦 <strong>Negara Bekas Jajahan:</strong> Bergantung pada kegiatan <em>ekspor komoditas primer</em> (bahan mentah).
+                                    </div>
+                                    <div class="p-2.5 rounded-xl bg-sky-100 border-2 border-slate-900 text-slate-900 font-semibold">
+                                        🏭 <strong>Negara Industri Maju:</strong> Menguasai <em>impor barang jadi, modal, teknologi, dan keahlian manajemen</em> ke negara berkembang.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUB-TAB 2: KETERTINGGALAN DAN KETIMPANGAN BUDAYA -->
+                <div id="matContent2" class="mat-tab-content hidden space-y-5">
+                    <div class="p-6 rounded-3xl bg-amber-100 border-4 border-slate-900 shadow-[0_6px_0_#1e293b] space-y-4">
+                        <div class="flex items-center gap-3.5">
+                            <div class="w-14 h-14 rounded-2xl bg-yellow-400 border-3 border-slate-900 text-slate-900 flex items-center justify-center text-2xl shrink-0 shadow-[0_3px_0_#1e293b]" style="border: 3px solid #1E293B;">
+                                <i class="fa-solid fa-people-arrows"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl sm:text-2xl font-bold text-slate-900">2. Ketertinggalan dan Ketimpangan Budaya</h3>
+                                <p class="text-xs font-cartoon font-bold text-amber-900">🎭 Konsep Inti: Gegar Budaya (Culture Shock) & Ketertinggalan Budaya (Cultural Lag)</p>
+                            </div>
+                        </div>
+
+                        <p class="text-slate-800 font-semibold text-sm sm:text-base leading-relaxed bg-white p-4 rounded-2xl border-2 border-slate-900">
+                            Masalah sosial lain yang timbul dari proses globalisasi dan digitalisasi adalah kesiapan masyarakat menghadapi perubahan pembangunan. Kenyataannya, masih banyak kelompok masyarakat dan bangsa yang <strong>secara mental dan kultural belum siap</strong> menghadapi globalisasi, sehingga memicu dua fenomena utama:
+                        </p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <!-- Gegar Budaya -->
+                            <div class="p-5 rounded-2xl bg-white border-3 border-slate-900 shadow-[0_4px_0_#1e293b] space-y-2.5" style="border: 3px solid #1E293B;">
+                                <div class="inline-block px-3 py-1 rounded-xl bg-orange-300 border-2 border-slate-900 text-slate-900 text-xs font-cartoon font-bold">
+                                    😲 A. GEGAR BUDAYA (CULTURE SHOCK)
+                                </div>
+                                <p class="text-xs sm:text-sm text-slate-800 font-semibold leading-relaxed">
+                                    Kondisi ketika masyarakat <strong>belum siap menerima unsur-unsur kebudayaan asing</strong> yang berbeda dengan kebudayaan sendiri, atau kesenjangan antara budaya lama dengan budaya baru.
+                                </p>
+                                <div class="text-xs sm:text-sm text-slate-800 font-semibold space-y-1 pt-1">
+                                    <div class="font-bold text-orange-700">Gejala pada Individu & Organisasi:</div>
+                                    <ul class="list-disc list-inside space-y-1">
+                                        <li>Mengalami kebingungan dan resistensi (penolakan) terhadap perubahan budaya.</li>
+                                        <li>Muncul perasaan tidak berdaya dan mudah terpancing emosi.</li>
+                                        <li>Merasa takut akan dibohongi dan diacuhkan.</li>
+                                        <li>Menimbulkan pemikiran negatif terhadap kebudayaan baru.</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Ketertinggalan Budaya -->
+                            <div class="p-5 rounded-2xl bg-white border-3 border-slate-900 shadow-[0_4px_0_#1e293b] space-y-2.5" style="border: 3px solid #1E293B;">
+                                <div class="inline-block px-3 py-1 rounded-xl bg-sky-300 border-2 border-slate-900 text-slate-900 text-xs font-cartoon font-bold">
+                                    🐢 B. KETERTINGGALAN BUDAYA (CULTURAL LAG)
+                                </div>
+                                <p class="text-xs sm:text-sm text-slate-800 font-semibold leading-relaxed">
+                                    Kondisi <strong>tidak seimbangnya unsur-unsur kebudayaan</strong> yang berkembang di dalam masyarakat akibat perbedaan laju perubahan yang tidak sebanding antara unsur-unsur budaya yang saling berkorelasi (berhubungan).
+                                </p>
+                                <div class="text-xs sm:text-sm text-slate-800 font-semibold space-y-1 pt-1">
+                                    <div class="font-bold text-sky-700">Karakteristik & Penyebab:</div>
+                                    <ul class="list-disc list-inside space-y-1">
+                                        <li>Budaya organisasi tidak sejalan dengan tuntutan lingkungan yang berubah cepat.</li>
+                                        <li>Menghambat kemampuan organisasi/masyarakat untuk beradaptasi dan berinovasi.</li>
+                                        <li>Masyarakat terjebak dalam pola budaya yang sudah usang serta <strong>tidak adanya kepemimpinan</strong> yang mendorong ke arah perubahan.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUB-TAB 3: KONSUMERISME DAN HEDONISME -->
+                <div id="matContent3" class="mat-tab-content hidden space-y-5">
+                    <div class="p-6 rounded-3xl bg-pink-100 border-4 border-slate-900 shadow-[0_6px_0_#1e293b] space-y-4">
+                        <div class="flex items-center gap-3.5">
+                            <div class="w-14 h-14 rounded-2xl bg-pink-400 border-3 border-slate-900 text-slate-900 flex items-center justify-center text-2xl shrink-0 shadow-[0_3px_0_#1e293b]" style="border: 3px solid #1E293B;">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl sm:text-2xl font-bold text-slate-900">3. Konsumerisme dan Hedonisme</h3>
+                                <p class="text-xs font-cartoon font-bold text-pink-900">🛍️ Referensi: Prajabti (2017), Suciptaningsih (2017), Nazarudin & Widiastuti (2022)</p>
+                            </div>
+                        </div>
+
+                        <p class="text-slate-800 font-semibold text-sm sm:text-base leading-relaxed bg-white p-4 rounded-2xl border-2 border-slate-900">
+                            Di era modernisasi, perubahan gaya hidup (terutama di kota besar) digunakan untuk menunjukkan <strong>status sosial individu melalui simbol-simbol tertentu</strong>. Kemajuan teknologi menggeser aktivitas dari dunia nyata ke dunia maya melalui <strong>media sosial dan aplikasi jual-beli daring</strong>, yang memperparah sifat konsumerisme dan hedonisme di kalangan generasi muda.
+                        </p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="p-5 rounded-2xl bg-white border-3 border-slate-900 shadow-[0_4px_0_#1e293b] space-y-2" style="border: 3px solid #1E293B;">
+                                <h4 class="font-bold text-slate-900 text-base"><i class="fa-solid fa-gem text-pink-500 mr-1.5"></i> Dua Faktor Gaya Hidup Hedonisme (Prajabti, 2017)</h4>
+                                <ul class="text-xs sm:text-sm text-slate-800 font-semibold space-y-2 leading-relaxed">
+                                    <li class="p-2.5 rounded-xl bg-pink-50 border-2 border-slate-900"><strong>1. Faktor Internal:</strong> Berasal dari dalam diri individu, seperti keyakinan pribadi untuk mengadopsi gaya hidup mewah seperti yang diinginkannya.</li>
+                                    <li class="p-2.5 rounded-xl bg-purple-50 border-2 border-slate-900"><strong>2. Faktor Eksternal:</strong> Pengaruh dari lingkungan luar individu, seperti kelompok teman sebaya, lingkungan tempat tinggal, serta pergaulan sehari-hari.</li>
+                                </ul>
+                            </div>
+
+                            <div class="p-5 rounded-2xl bg-white border-3 border-slate-900 shadow-[0_4px_0_#1e293b] space-y-2" style="border: 3px solid #1E293B;">
+                                <h4 class="font-bold text-slate-900 text-base"><i class="fa-solid fa-credit-card text-amber-500 mr-1.5"></i> Konsumerisme & Dampak Psikologis</h4>
+                                <p class="text-xs sm:text-sm text-slate-800 font-semibold leading-relaxed">
+                                    <strong>Suciptaningsih (2017):</strong> Pola hidup melakukan konsumsi berlebihan/tidak terkendali secara sadar & berkelanjutan; menganggap barang mewah sebagai ukuran kebahagiaan, kesenangan, pemuas diri, dan kesuksesan.
+                                </p>
+                                <p class="text-xs sm:text-sm text-slate-800 font-semibold leading-relaxed bg-amber-100 p-2.5 rounded-xl border-2 border-slate-900">
+                                    <strong>Nazarudin & Widiastuti (2022):</strong> Lebih mementingkan <strong>keinginan (wants)</strong> dibandingkan <strong>kebutuhan (needs)</strong> tanpa pertimbangan finansial memadai. Ketika keinginan tidak terpenuhi karena keterbatasan finansial, timbul <strong>kecemasan (anxiety) dan rasa tidak aman</strong>.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUB-TAB 4: KERUSAKAN LINGKUNGAN -->
+                <div id="matContent4" class="mat-tab-content hidden space-y-5">
+                    <div class="p-6 rounded-3xl bg-lime-100 border-4 border-slate-900 shadow-[0_6px_0_#1e293b] space-y-4">
+                        <div class="flex items-center gap-3.5">
+                            <div class="w-14 h-14 rounded-2xl bg-lime-400 border-3 border-slate-900 text-slate-900 flex items-center justify-center text-2xl shrink-0 shadow-[0_3px_0_#1e293b]" style="border: 3px solid #1E293B;">
+                                <i class="fa-solid fa-tree-city"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl sm:text-2xl font-bold text-slate-900">4. Kerusakan Lingkungan</h3>
+                                <p class="text-xs font-cartoon font-bold text-emerald-900">🌱 Referensi Kunci: Maravel (2023) • Ekspansi Perusahaan Multinasional sejak 1970</p>
+                            </div>
+                        </div>
+
+                        <p class="text-slate-800 font-semibold text-sm sm:text-base leading-relaxed bg-white p-4 rounded-2xl border-2 border-slate-900">
+                            Sejak tahun <strong>1970</strong>, perusahaan multinasional (<em>Multinational Corporations / MNC</em>) telah memulai kegiatan ekonomi secara agresif yang melampaui batas wilayah negaranya. Kegiatan ekonomi tersebut dilakukan dengan cara yang <strong>ekspansif dan eksploitatif</strong> sehingga mengabaikan dampak ekologis yang ditimbulkannya.
+                        </p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 pt-2">
+                            <div class="p-4 rounded-2xl bg-white border-3 border-slate-900 shadow-[0_4px_0_#1e293b]" style="border: 3px solid #1E293B;">
+                                <i class="fa-solid fa-smog text-emerald-600 text-2xl"></i>
+                                <div class="font-bold text-slate-900 text-sm mt-1.5">Pencemaran Multi-Elemen</div>
+                                <p class="text-xs text-slate-700 font-semibold mt-1">Pencemaran tanah, air, udara, hingga polusi suara akibat industri.</p>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-white border-3 border-slate-900 shadow-[0_4px_0_#1e293b]" style="border: 3px solid #1E293B;">
+                                <i class="fa-solid fa-mountain-sun text-teal-600 text-2xl"></i>
+                                <div class="font-bold text-slate-900 text-sm mt-1.5">Degradasi Ekosistem</div>
+                                <p class="text-xs text-slate-700 font-semibold mt-1">Kerusakan hutan (deforestasi), kawasan pantai, pegunungan, dan tanaman.</p>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-white border-3 border-slate-900 shadow-[0_4px_0_#1e293b]" style="border: 3px solid #1E293B;">
+                                <i class="fa-solid fa-house-flood-water text-rose-600 text-2xl"></i>
+                                <div class="font-bold text-slate-900 text-sm mt-1.5">Potensi Bencana Alam</div>
+                                <p class="text-xs text-slate-700 font-semibold mt-1">Eksploitasi berlebihan memicu bencana ekologis (banjir, longsor, krisis iklim).</p>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-white border-3 border-slate-900 shadow-[0_4px_0_#1e293b]" style="border: 3px solid #1E293B;">
+                                <i class="fa-solid fa-triangle-exclamation text-amber-600 text-2xl"></i>
+                                <div class="font-bold text-slate-900 text-sm mt-1.5">Ancaman Kemanusiaan</div>
+                                <p class="text-xs text-slate-700 font-semibold mt-1">Mengancam keberlangsungan hidup masyarakat lokal di sekitar area operasi (Maravel, 2023).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUB-TAB 5: KEJAHATAN SIBER -->
+                <div id="matContent5" class="mat-tab-content hidden space-y-5">
+                    <div class="p-6 rounded-3xl bg-purple-100 border-4 border-slate-900 shadow-[0_6px_0_#1e293b] space-y-4">
+                        <div class="flex items-center gap-3.5">
+                            <div class="w-14 h-14 rounded-2xl bg-purple-400 border-3 border-slate-900 text-slate-900 flex items-center justify-center text-2xl shrink-0 shadow-[0_3px_0_#1e293b]" style="border: 3px solid #1E293B;">
+                                <i class="fa-solid fa-user-ninja"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl sm:text-2xl font-bold text-slate-900">5. Kejahatan Siber (Cybercrime)</h3>
+                                <p class="text-xs font-cartoon font-bold text-purple-900">🛡️ Referensi: Raodia (2019) & Tabrani, dkk. (2024)</p>
+                            </div>
+                        </div>
+
+                        <p class="text-slate-800 font-semibold text-sm sm:text-base leading-relaxed bg-white p-4 rounded-2xl border-2 border-slate-900">
+                            <strong>Kejahatan siber</strong> adalah tindakan melanggar hukum yang dilakukan melalui internet dengan memanfaatkan kecanggihan teknologi komputer, telekomunikasi, dan teknologi informasi (Raodia, 2019). Berikut adalah <strong>4 bentuk utama kejahatan siber</strong> akibat perkembangan globalisasi dan era digital:
+                        </p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- a. Phishing -->
+                            <div class="p-5 rounded-2xl bg-white border-3 border-slate-900 shadow-[0_4px_0_#1e293b] space-y-1.5" style="border: 3px solid #1E293B;">
+                                <div class="flex items-center justify-between">
+                                    <span class="font-bold text-slate-900 text-base">🎣 a. Pencurian Data (Phishing)</span>
+                                    <span class="text-xs font-cartoon font-bold px-2.5 py-0.5 rounded-full bg-amber-300 border-2 border-slate-900 text-slate-900">Tabrani dkk., 2024</span>
+                                </div>
+                                <p class="text-xs sm:text-sm text-slate-800 font-semibold leading-relaxed">
+                                    Penipuan daring di mana pelaku berupaya memperoleh informasi rahasia/sensitif korban dengan <strong>menyamar sebagai entitas tepercaya</strong>. Sasaran meliputi:
+                                    <br>• <strong>Data Pribadi:</strong> Nama, umur, alamat.
+                                    <br>• <strong>Data Rekening:</strong> Username dan password.
+                                    <br>• <strong>Data Keuangan:</strong> Kartu kredit & informasi rekening (untuk ditipu langsung atau dijual ke pihak lain).
+                                </p>
+                            </div>
+
+                            <!-- b. Malware -->
+                            <div class="p-5 rounded-2xl bg-white border-3 border-slate-900 shadow-[0_4px_0_#1e293b] space-y-1.5" style="border: 3px solid #1E293B;">
+                                <div class="flex items-center justify-between">
+                                    <span class="font-bold text-slate-900 text-base">🦠 b. Penyebaran Malware</span>
+                                    <span class="text-xs font-cartoon font-bold px-2.5 py-0.5 rounded-full bg-rose-300 border-2 border-slate-900 text-slate-900">Malicious Software</span>
+                                </div>
+                                <p class="text-xs sm:text-sm text-slate-800 font-semibold leading-relaxed">
+                                    Perangkat lunak yang dibuat untuk <strong>menyusup atau merusak sistem komputer, server, atau jaringan</strong> tanpa izin pemiliknya. Menyebabkan kerusakan sistem dan pencurian data. Menyebar melalui <em>email</em>, unduhan dari internet, atau program yang sudah terinfeksi.
+                                </p>
+                            </div>
+
+                            <!-- c. DoS -->
+                            <div class="p-5 rounded-2xl bg-white border-3 border-slate-900 shadow-[0_4px_0_#1e293b] space-y-1.5" style="border: 3px solid #1E293B;">
+                                <div class="flex items-center justify-between">
+                                    <span class="font-bold text-slate-900 text-base">💥 c. Serangan DoS (Denial of Service)</span>
+                                    <span class="text-xs font-cartoon font-bold px-2.5 py-0.5 rounded-full bg-sky-300 border-2 border-slate-900 text-slate-900">Server Overload</span>
+                                </div>
+                                <p class="text-xs sm:text-sm text-slate-800 font-semibold leading-relaxed">
+                                    Serangan terhadap sistem jaringan di mana <em>hacker</em> berupaya <strong>menghabiskan sumber daya sistem</strong> dengan mengirimkan permintaan layanan palsu secara terus-menerus, sehingga server menjadi <em>down, hang, dan crash</em> serta pengguna lain tidak bisa mengakses layanan.
+                                </p>
+                            </div>
+
+                            <!-- d. Cyberbullying -->
+                            <div class="p-5 rounded-2xl bg-white border-3 border-slate-900 shadow-[0_4px_0_#1e293b] space-y-1.5" style="border: 3px solid #1E293B;">
+                                <div class="flex items-center justify-between">
+                                    <span class="font-bold text-slate-900 text-base">💬 d. Perundungan Siber (Cyberbullying)</span>
+                                    <span class="text-xs font-cartoon font-bold px-2.5 py-0.5 rounded-full bg-purple-300 border-2 border-slate-900 text-slate-900">Intimidasi Virtual</span>
+                                </div>
+                                <p class="text-xs sm:text-sm text-slate-800 font-semibold leading-relaxed">
+                                    Bentuk intimidasi di lingkungan virtual melalui sarana elektronik (telepon/internet) dengan <strong>mengirimkan pesan atau gambar</strong> yang bertujuan untuk melukai, menyakiti, atau membuat malu orang lain.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIMULASI / EKSPERIMEN INTERAKTIF BERBASIS MANIPULASI DOM -->
+            <div class="glass-panel bg-gradient-to-br from-amber-100 via-white to-sky-100 p-6 sm:p-10">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b-4 border-slate-900 pb-5 mb-6">
+                    <div>
+                        <span class="px-3 py-1 rounded-full bg-orange-400 border-2 border-slate-900 text-slate-900 text-xs font-cartoon font-bold shadow-[0_2px_0_#1e293b]">
+                            <i class="fa-solid fa-flask mr-1"></i> LABORATORIUM SIMULASI SOSIOLOGI
+                        </span>
+                        <h3 class="text-xl sm:text-3xl font-bold text-slate-900 mt-2">
+                            Simulator Indeks Kerentanan Masalah Sosial & Detektor Siber
+                        </h3>
+                        <p class="text-slate-700 font-semibold text-xs sm:text-sm mt-1">
+                            🎛️ Geser tombol kuning di bawah ini untuk mengubah kondisi masyarakat dan amati dampaknya secara langsung!
+                        </p>
+                    </div>
+                    <button onclick="resetSimulation()" class="px-4 py-2.5 bg-yellow-300 hover:bg-yellow-200 text-slate-900 text-xs sm:text-sm font-bold btn-bouncy self-start">
+                        <i class="fa-solid fa-rotate-left mr-1"></i> Reset Parameter
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                    <!-- Sliders Control Panel -->
+                    <div class="lg:col-span-6 space-y-5 bg-white p-6 rounded-3xl border-3 border-slate-900 shadow-[0_6px_0_#1e293b]" style="border: 3px solid #1E293B;">
+                        <!-- Slider 1 -->
+                        <div>
+                            <div class="flex justify-between text-xs sm:text-sm mb-1.5">
+                                <label class="font-bold text-slate-900">1. Dominasi Impor & Korporasi Asing (MNC)</label>
+                                <span id="valNeo" class="font-cartoon font-bold px-2.5 py-0.5 rounded-lg bg-sky-200 border-2 border-slate-900 text-slate-900">65%</span>
+                            </div>
+                            <input id="simNeo" type="range" min="0" max="100" value="65" oninput="updateSimulation()" class="w-full">
+                            <div class="flex justify-between text-[11px] font-bold text-slate-600 mt-1">
+                                <span>Kedaulatan Mandiri</span>
+                                <span>Ketergantungan Neokolonialisme & Eksploitasi Alam</span>
+                            </div>
+                        </div>
+
+                        <!-- Slider 2 -->
+                        <div>
+                            <div class="flex justify-between text-xs sm:text-sm mb-1.5">
+                                <label class="font-bold text-slate-900">2. Kesenjangan Adaptasi Budaya Masyarakat</label>
+                                <span id="valBudaya" class="font-cartoon font-bold px-2.5 py-0.5 rounded-lg bg-amber-200 border-2 border-slate-900 text-slate-900">70%</span>
+                            </div>
+                            <input id="simBudaya" type="range" min="0" max="100" value="70" oninput="updateSimulation()" class="w-full">
+                            <div class="flex justify-between text-[11px] font-bold text-slate-600 mt-1">
+                                <span>Adaptif & Inovatif</span>
+                                <span>Rentan Culture Shock & Cultural Lag</span>
+                            </div>
+                        </div>
+
+                        <!-- Slider 3 -->
+                        <div>
+                            <div class="flex justify-between text-xs sm:text-sm mb-1.5">
+                                <label class="font-bold text-slate-900">3. Dorongan Belanja Keinginan (Wants) vs Needs</label>
+                                <span id="valKonsum" class="font-cartoon font-bold px-2.5 py-0.5 rounded-lg bg-pink-200 border-2 border-slate-900 text-slate-900">80%</span>
+                            </div>
+                            <input id="simKonsum" type="range" min="0" max="100" value="80" oninput="updateSimulation()" class="w-full">
+                            <div class="flex justify-between text-[11px] font-bold text-slate-600 mt-1">
+                                <span>Prioritas Kebutuhan (Needs)</span>
+                                <span>Konsumerisme, Hedonisme & Kecemasan</span>
+                            </div>
+                        </div>
+
+                        <!-- Slider 4 -->
+                        <div>
+                            <div class="flex justify-between text-xs sm:text-sm mb-1.5">
+                                <label class="font-bold text-slate-900">4. Tingkat Literasi & Keamanan Siber Warga</label>
+                                <span id="valSiber" class="font-cartoon font-bold px-2.5 py-0.5 rounded-lg bg-lime-200 border-2 border-slate-900 text-slate-900">30%</span>
+                            </div>
+                            <input id="simSiber" type="range" min="0" max="100" value="30" oninput="updateSimulation()" class="w-full">
+                            <div class="flex justify-between text-[11px] font-bold text-slate-600 mt-1">
+                                <span>Rawan Phishing/Malware/Bullying</span>
+                                <span>Tangguh Digital</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Output Live Monitor -->
+                    <div class="lg:col-span-6 space-y-4">
+                        <div class="p-6 rounded-3xl bg-white border-3 border-slate-900 shadow-[0_6px_0_#1e293b] space-y-4" style="border: 3px solid #1E293B;">
+                            <div class="flex items-center justify-between gap-2">
+                                <div>
+                                    <span class="text-xs font-cartoon font-bold text-slate-600">STATUS DIAGNOSIS LINGKUNGAN SOSIAL</span>
+                                    <h4 id="simStatusTitle" class="text-lg sm:text-xl font-bold text-amber-600 mt-0.5">WASPADA TINGGI (KERENTANAN GANDA)</h4>
+                                </div>
+                                <div class="text-right bg-yellow-200 px-3.5 py-2 rounded-2xl border-2 border-slate-900">
+                                    <span class="text-[10px] font-cartoon font-bold text-slate-700 block">SKOR RISIKO SOSIAL</span>
+                                    <div id="simRiskScore" class="text-2xl font-cartoon font-bold text-slate-900">71 / 100</div>
+                                </div>
+                            </div>
+
+                            <!-- Visual Progress Bar -->
+                            <div class="w-full h-5 rounded-full bg-slate-200 border-2 border-slate-900 overflow-hidden p-0.5">
+                                <div id="simRiskBar" class="h-full rounded-full bg-gradient-to-r from-lime-400 via-yellow-400 to-rose-500 transition-all duration-300" style="width: 71%"></div>
+                            </div>
+
+                            <!-- Dynamic Sociological Findings -->
+                            <div id="simAnalysisText" class="text-xs sm:text-sm text-slate-800 font-semibold space-y-2 leading-relaxed bg-amber-50 p-4 rounded-2xl border-2 border-slate-900">
+                                <!-- Filled dynamically by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex justify-between items-center pt-5 border-t-4 border-slate-900">
+                    <button onclick="navigateTo('pemantik')" class="px-5 py-3 bg-slate-200 hover:bg-slate-300 text-slate-900 text-xs sm:text-sm font-bold btn-bouncy">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> Ke Pemantik
+                    </button>
+                    <button onclick="navigateTo('games')" class="px-6 py-3.5 bg-purple-400 hover:bg-purple-300 text-slate-900 font-bold text-sm sm:text-base btn-bouncy flex items-center gap-2">
+                        <span>Lanjut ke Lab Klasifikasi (Mini Game)</span>
+                        <i class="fa-solid fa-gamepad"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. EVALUASI INTERAKTIF & GAMES (SORTING 2 KATEGORI) -->
+        <section id="sec-games" class="spa-section space-y-6">
+            <div class="glass-panel bg-white p-6 sm:p-10">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                    <div>
+                        <span class="px-3 py-1 rounded-full bg-purple-300 border-2 border-slate-900 text-xs font-cartoon uppercase font-bold text-slate-900 shadow-[0_2px_0_#1e293b]">
+                            🎮 Evaluasi Interaktif & Games
+                        </span>
+                        <h2 class="text-2xl sm:text-4xl font-bold text-slate-900 mt-2">Lab Klasifikasi Masalah Sosial</h2>
+                        <p class="text-slate-700 font-semibold text-xs sm:text-sm mt-1">
+                            Masukkan <strong>8 kartu kasus</strong> di bawah ini ke dalam <strong>2 Keranjang Kategori</strong> yang tepat!
+                            <span class="text-pink-600 font-bold">(Bisa Drag & Drop di komputer ATAU Klik Kartu lalu Klik Keranjang di HP)</span>.
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3 self-start">
+                        <button onclick="validateSortingGame()" class="px-5 py-3 bg-lime-400 hover:bg-lime-300 text-slate-900 text-xs sm:text-sm font-bold btn-bouncy">
+                            <i class="fa-solid fa-check-double mr-1"></i> Periksa Jawaban
+                        </button>
+                        <button onclick="initSortingGame()" class="px-4 py-3 bg-yellow-300 hover:bg-yellow-200 text-slate-900 text-xs sm:text-sm font-bold btn-bouncy">
+                            <i class="fa-solid fa-rotate mr-1"></i> Acak Ulang
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Feedback Banner for Game -->
+                <div id="gameFeedback" class="hidden mb-6 p-4 rounded-2xl border-3 border-slate-900 text-sm font-bold"></div>
+
+                <!-- Unsorted Pool -->
+                <div class="mb-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs sm:text-sm font-cartoon font-bold text-slate-800 uppercase">🃏 Daftar Kartu Kasus (Pilih / Geser Kartu):</span>
+                        <span id="gameRemainingCount" class="text-xs font-cartoon font-bold px-3 py-1 rounded-full bg-yellow-300 border-2 border-slate-900 text-slate-900">Belum dikelompokkan: 8 kartu</span>
+                    </div>
+                    <div id="poolContainer" ondragover="allowDrop(event)" ondrop="dropToZone(event, 'pool')" class="min-h-[110px] p-4 rounded-3xl bg-amber-50 border-4 border-dashed border-slate-900 flex flex-wrap gap-3 items-center">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- 2 WADAH KATEGORI -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Wadah 1: Masalah Struktural, Kultural & Lingkungan -->
+                    <div onclick="handleZoneTap('non-siber')" ondragover="allowDrop(event)" ondrop="dropToZone(event, 'non-siber')" id="zoneNonSiber" class="rounded-3xl p-5 bg-sky-100 border-4 border-dashed border-slate-900 hover:bg-sky-200/70 transition min-h-[260px] flex flex-col justify-between cursor-pointer shadow-[0_6px_0_#1e293b]">
+                        <div>
+                            <div class="flex items-center justify-between border-b-2 border-slate-900 pb-3 mb-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-11 h-11 rounded-2xl bg-sky-400 border-2 border-slate-900 text-slate-900 flex items-center justify-center shadow-[0_3px_0_#1e293b]">
+                                        <i class="fa-solid fa-earth-asia text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-slate-900 text-sm sm:text-base">KERANJANG A: Struktural, Budaya, Gaya Hidup & Alam</h3>
+                                        <p class="text-xs font-semibold text-slate-700">Neokolonialisme, Culture Shock/Lag, Konsumerisme, Lingkungan</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs font-cartoon font-bold px-2.5 py-1 rounded-xl bg-white border-2 border-slate-900 text-slate-900">Taruh Sini</span>
+                            </div>
+                            <div id="itemsNonSiber" class="space-y-2.5"></div>
+                        </div>
+                        <div class="text-xs font-cartoon font-bold text-slate-700 pt-3 mt-3 border-t-2 border-slate-900/20 text-center">
+                            👆 Ketuk keranjang ini untuk menaruh kartu yang sedang dipilih
+                        </div>
+                    </div>
+
+                    <!-- Wadah 2: Masalah Kejahatan Siber (Cybercrime) -->
+                    <div onclick="handleZoneTap('siber')" ondragover="allowDrop(event)" ondrop="dropToZone(event, 'siber')" id="zoneSiber" class="rounded-3xl p-5 bg-pink-100 border-4 border-dashed border-slate-900 hover:bg-pink-200/70 transition min-h-[260px] flex flex-col justify-between cursor-pointer shadow-[0_6px_0_#1e293b]">
+                        <div>
+                            <div class="flex items-center justify-between border-b-2 border-slate-900 pb-3 mb-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-11 h-11 rounded-2xl bg-pink-400 border-2 border-slate-900 text-slate-900 flex items-center justify-center shadow-[0_3px_0_#1e293b]">
+                                        <i class="fa-solid fa-user-shield text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-slate-900 text-sm sm:text-base">KERANJANG B: Kejahatan Siber (Cybercrime)</h3>
+                                        <p class="text-xs font-semibold text-slate-700">Phishing, Penyebaran Malware, Serangan DoS, Cyberbullying</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs font-cartoon font-bold px-2.5 py-1 rounded-xl bg-white border-2 border-slate-900 text-slate-900">Taruh Sini</span>
+                            </div>
+                            <div id="itemsSiber" class="space-y-2.5"></div>
+                        </div>
+                        <div class="text-xs font-cartoon font-bold text-slate-700 pt-3 mt-3 border-t-2 border-slate-900/20 text-center">
+                            👆 Ketuk keranjang ini untuk menaruh kartu yang sedang dipilih
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex justify-between items-center">
+                    <button onclick="navigateTo('materi')" class="px-5 py-3 bg-slate-200 hover:bg-slate-300 text-slate-900 text-xs sm:text-sm font-bold btn-bouncy">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> Kembali ke Materi
+                    </button>
+                    <button onclick="navigateTo('kuis')" class="px-6 py-3.5 bg-lime-400 hover:bg-lime-300 text-slate-900 font-bold text-sm sm:text-base btn-bouncy flex items-center gap-2">
+                        <span>Lanjut ke Kuis TKA (20 Soal)</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. KUIS INTERAKTIF TKA (20 SOAL: PILIHAN GANDA BIASA & PILIHAN GANDA KOMPLEKS A-E) -->
+        <section id="sec-kuis" class="spa-section space-y-6">
+            <div class="glass-panel bg-white p-6 sm:p-10">
+                <!-- Quiz Header & Real-time Scoreboard -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b-4 border-slate-900 pb-5 mb-6">
+                    <div>
+                        <span class="px-3 py-1 rounded-full bg-lime-300 border-2 border-slate-900 text-xs font-cartoon uppercase font-bold text-slate-900 shadow-[0_2px_0_#1e293b]">
+                            🏆 Evaluasi Standar TKA Sosiologi XII
+                        </span>
+                        <h2 class="text-2xl sm:text-4xl font-bold text-slate-900 mt-2">Kuis TKA Masalah Sosial (20 Soal A–E)</h2>
+                        <p class="text-xs sm:text-sm font-bold text-slate-700 mt-1">
+                            Terdiri dari <strong>Pilihan Ganda Biasa (1 jawaban benar)</strong> dan <strong>Pilihan Ganda Kompleks (pilih semua jawaban benar)</strong>.
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3 self-start">
+                        <div class="px-4 py-2 rounded-2xl bg-sky-200 border-2 border-slate-900 text-center shadow-[0_3px_0_#1e293b]">
+                            <div class="text-[10px] font-cartoon font-bold text-slate-700">NOMOR SOAL</div>
+                            <div id="quizProgressText" class="text-base sm:text-lg font-cartoon font-bold text-slate-900">1 / 20</div>
+                        </div>
+                        <div class="px-4 py-2 rounded-2xl bg-yellow-300 border-2 border-slate-900 text-center shadow-[0_3px_0_#1e293b]">
+                            <div class="text-[10px] font-cartoon font-bold text-slate-700">SKOR KAMU</div>
+                            <div id="quizLiveScore" class="text-base sm:text-lg font-cartoon font-bold text-slate-900">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quiz Active Container -->
+                <div id="quizActiveArea" class="space-y-6">
+                    <!-- Progress Bar -->
+                    <div class="w-full h-4 rounded-full bg-slate-200 border-2 border-slate-900 overflow-hidden p-0.5">
+                        <div id="quizProgressBar" class="h-full rounded-full bg-gradient-to-r from-pink-400 via-yellow-400 to-lime-400 transition-all duration-300" style="width: 5%"></div>
+                    </div>
+
+                    <!-- Question Box -->
+                    <div class="p-6 rounded-3xl bg-amber-100 border-3 border-slate-900 shadow-[0_5px_0_#1e293b] space-y-3" style="border: 3px solid #1E293B;">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <span id="quizIndicatorBadge" class="inline-block px-3 py-1 rounded-xl bg-white border-2 border-slate-900 text-slate-900 text-xs font-cartoon font-bold">
+                                Indikator 1 • Neokolonialisme
+                            </span>
+                            <span id="quizTypeBadge" class="inline-block px-3.5 py-1 rounded-xl bg-sky-300 border-2 border-slate-900 text-slate-900 text-xs font-cartoon font-bold shadow-[0_2px_0_#1e293b]">
+                                📌 TKA: Pilihan Ganda Biasa
+                            </span>
+                        </div>
+                        <h3 id="quizQuestionText" class="text-base sm:text-xl font-bold text-slate-900 leading-relaxed">
+                            Memuat pertanyaan...
+                        </h3>
+                        <div id="quizInstructionBanner" class="text-xs sm:text-sm font-bold px-3.5 py-2 rounded-xl bg-white/90 border-2 border-slate-900 text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-circle-info text-sky-600"></i>
+                            <span>Pilih <strong>1 opsi jawaban (A, B, C, D, atau E)</strong> yang paling tepat!</span>
+                        </div>
+                    </div>
+
+                    <!-- Options Grid (A, B, C, D, E) -->
+                    <div id="quizOptionsContainer" class="grid grid-cols-1 gap-3.5">
+                        <!-- Dynamically generated 5 options -->
+                    </div>
+
+                    <!-- Action Button for Pilihan Ganda Kompleks -->
+                    <div id="complexSubmitWrapper" class="hidden flex items-center justify-between bg-purple-100 p-4 rounded-2xl border-3 border-slate-900 shadow-[0_4px_0_#1e293b]" style="border: 3px solid #1E293B;">
+                        <div class="text-xs sm:text-sm font-bold text-slate-900">
+                            <i class="fa-solid fa-check-double text-purple-600 mr-1.5"></i>
+                            <span id="complexSelectedCounter">0 opsi dipilih</span> (Centang semua jawaban yang benar lalu klik tombol Kunci Jawaban)
+                        </div>
+                        <button id="btnSubmitComplex" type="button" onclick="submitComplexAnswer()" class="px-6 py-3 bg-purple-400 hover:bg-purple-300 text-slate-900 font-bold text-xs sm:text-sm btn-bouncy shrink-0">
+                            <i class="fa-solid fa-lock mr-1.5"></i> Kunci Jawaban Kompleks
+                        </button>
+                    </div>
+
+                    <!-- Explanation Feedback Box -->
+                    <div id="quizExplanationBox" class="hidden p-5 rounded-3xl border-3 border-slate-900 space-y-2">
+                        <div id="quizExplanationTitle" class="font-bold text-base flex items-center gap-2"></div>
+                        <p id="quizExplanationDesc" class="text-xs sm:text-sm text-slate-800 font-semibold leading-relaxed"></p>
+                    </div>
+
+                    <!-- Navigation Button -->
+                    <div class="flex justify-end pt-2">
+                        <button id="btnNextQuestion" onclick="nextQuestion()" class="hidden px-7 py-3.5 bg-pink-400 hover:bg-pink-300 text-slate-900 font-bold text-sm sm:text-base btn-bouncy">
+                            <span>Soal Berikutnya</span>
+                            <i class="fa-solid fa-arrow-right ml-1.5"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quiz Result Summary Container -->
+                <div id="quizResultArea" class="hidden text-center py-8 space-y-6">
+                    <div class="w-24 h-24 rounded-3xl bg-yellow-300 border-4 border-slate-900 mx-auto flex items-center justify-center text-slate-900 text-5xl shadow-[0_6px_0_#1e293b] animate-bounce">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <div>
+                        <span class="px-3 py-1 rounded-full bg-lime-300 border-2 border-slate-900 text-xs font-cartoon uppercase font-bold text-slate-900">🎉 Hasil Evaluasi Akhir TKA</span>
+                        <h3 class="text-3xl sm:text-4xl font-bold text-slate-900 mt-3">Hore! Kuis 20 Soal Selesai!</h3>
+                        <p id="quizFinalPredicate" class="text-slate-700 font-semibold text-sm sm:text-base mt-2 max-w-md mx-auto"></p>
+                    </div>
+
+                    <div class="max-w-xs mx-auto p-6 rounded-3xl bg-sky-100 border-4 border-slate-900 shadow-[0_6px_0_#1e293b]">
+                        <div class="text-xs font-cartoon font-bold text-slate-700">SKOR AKHIR KAMU</div>
+                        <div id="quizFinalScoreDisplay" class="text-6xl font-cartoon font-bold text-slate-900 my-2">100</div>
+                        <div id="quizCorrectCountDisplay" class="text-xs sm:text-sm font-bold text-slate-800 bg-white py-1 px-3 rounded-full border-2 border-slate-900 inline-block">Benar 20 dari 20 Soal</div>
+                    </div>
+
+                    <div class="flex flex-wrap justify-center gap-4 pt-2">
+                        <button onclick="restartQuiz()" class="px-6 py-3.5 bg-yellow-300 hover:bg-yellow-200 text-slate-900 font-bold text-sm sm:text-base btn-bouncy">
+                            <i class="fa-solid fa-rotate-right mr-1.5"></i> Main Lagi (20 Soal)
+                        </button>
+                        <button onclick="navigateTo('refleksi')" class="px-7 py-3.5 bg-pink-400 hover:bg-pink-300 text-slate-900 font-bold text-sm sm:text-base btn-bouncy">
+                            <span>Isi Papan Refleksi Kolaboratif</span>
+                            <i class="fa-solid fa-arrow-right ml-1.5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. PAPAN REFLEKSI KOLABORATIF -->
+        <section id="sec-refleksi" class="spa-section space-y-6">
+            <div class="glass-panel bg-white p-6 sm:p-10">
+                <div class="mb-6">
+                    <span class="px-3 py-1 rounded-full bg-pink-300 border-2 border-slate-900 text-xs font-cartoon uppercase font-bold text-slate-900 shadow-[0_2px_0_#1e293b]">
+                        📌 Refleksi Pengamatan Lingkungan Sekitar
+                    </span>
+                    <h2 class="text-2xl sm:text-4xl font-bold text-slate-900 mt-2">Papan Refleksi Kolaboratif</h2>
+                    <p class="text-slate-700 font-semibold text-sm sm:text-base mt-1">
+                        Tuliskan hasil pengamatanmu tentang salah satu masalah sosial era digital di sekitarmu beserta ide solusinya!
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <!-- Form Input Refleksi -->
+                    <form onsubmit="submitReflection(event)" class="lg:col-span-4 p-6 rounded-3xl bg-yellow-100 border-3 border-slate-900 shadow-[0_6px_0_#1e293b] space-y-4" style="border: 3px solid #1E293B;">
+                        <h3 class="font-bold text-slate-900 text-lg flex items-center gap-2">
+                            <i class="fa-solid fa-pen-to-square text-pink-600"></i>
+                            Tambah Catatan Baru
+                        </h3>
+
+                        <div>
+                            <label class="block text-xs font-cartoon font-bold text-slate-800 mb-1">Nama Murid / Kelompok</label>
+                            <input id="refName" type="text" required placeholder="Ketik nama lengkap atau kelompok..." class="w-full px-4 py-3 rounded-2xl bg-white border-2 border-slate-900 text-slate-900 font-semibold text-sm focus:outline-none focus:ring-2 focus:ring-pink-400">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-cartoon font-bold text-slate-800 mb-1">Kesan / Perasaan Setelah Belajar</label>
+                            <select id="refMood" class="w-full px-4 py-3 rounded-2xl bg-white border-2 border-slate-900 text-slate-900 font-semibold text-sm focus:outline-none focus:ring-2 focus:ring-pink-400">
+                                <option value="🌟 Sangat Paham & Kritis">🌟 Sangat Paham & Kritis</option>
+                                <option value="💡 Lebih Waspada Kejahatan Siber">💡 Lebih Waspada Kejahatan Siber</option>
+                                <option value="🌱 Ingin Mengurangi Konsumerisme">🌱 Ingin Mengurangi Konsumerisme</option>
+                                <option value="🤔 Tertarik Mengamati Lebih Lanjut">🤔 Tertarik Mengamati Lebih Lanjut</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-cartoon font-bold text-slate-800 mb-1">Hasil Pengamatan Kasus & Refleksi Solusi</label>
+                            <textarea id="refMessage" rows="4" required placeholder="Tuliskan contoh masalah sosial (misal phishing, konsumerisme, atau cultural lag) yang kamu temui di sekitarmu..." class="w-full px-4 py-3 rounded-2xl bg-white border-2 border-slate-900 text-slate-900 font-semibold text-sm focus:outline-none focus:ring-2 focus:ring-pink-400"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-3.5 bg-pink-400 hover:bg-pink-300 text-slate-900 font-bold text-base btn-bouncy">
+                            <i class="fa-solid fa-paper-plane mr-1.5"></i> Tempel Sticky Note!
+                        </button>
+                    </form>
+
+                    <!-- Sticky Notes Wall -->
+                    <div class="lg:col-span-8 space-y-4">
+                        <div class="flex items-center justify-between bg-amber-50 px-4 py-2.5 rounded-2xl border-2 border-slate-900">
+                            <span id="refCountBadge" class="text-xs sm:text-sm font-cartoon font-bold text-slate-800">
+                                📝 Total Catatan Masuk: 0
+                            </span>
+                            <button type="button" id="btnClearReflections" onclick="clearAllReflections()" class="hidden px-3 py-1.5 bg-rose-300 hover:bg-rose-400 text-slate-900 text-xs font-bold rounded-xl border-2 border-slate-900 transition">
+                                <i class="fa-solid fa-trash-can mr-1"></i> Bersihkan Papan
+                            </button>
+                        </div>
+                        <div id="stickyWall" class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <!-- Sticky Notes populated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 9. FOOTER -->
+    <footer class="mt-auto border-t-4 border-slate-900 bg-amber-200 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs sm:text-sm text-slate-900 font-cartoon font-bold">
+            © bumonamengajar | 2026
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT ENGINE (SPA, WEB AUDIO SYNTH, SIMULATION, SORTING GAME, QUIZ, REFLECTION) -->
+    <script>
+        /* ==========================================================================
+           1. WEB AUDIO API SYNTHESIZER (TANPA FILE MP3 EKSTERNAL)
+           ========================================================================== */
+        let audioEnabled = true;
+        let audioCtx = null;
+
+        function getAudioContext() {
+            if (!audioCtx) {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                if (AudioContextClass) {
+                    audioCtx = new AudioContextClass();
+                }
+            }
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            return audioCtx;
+        }
+
+        function playSound(type) {
+            if (!audioEnabled) return;
+            try {
+                const ctx = getAudioContext();
+                if (!ctx) return;
+
+                const now = ctx.currentTime;
+
+                if (type === 'click') {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(520, now);
+                    osc.frequency.exponentialRampToValueAtTime(780, now + 0.07);
+                    gain.gain.setValueAtTime(0.12, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.07);
+                } else if (type === 'correct') {
+                    const notes = [523.25, 659.25, 783.99, 1046.5];
+                    notes.forEach((freq, i) => {
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = 'triangle';
+                        osc.frequency.setValueAtTime(freq, now + i * 0.07);
+                        gain.gain.setValueAtTime(0.15, now + i * 0.07);
+                        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.07 + 0.18);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start(now + i * 0.07);
+                        osc.stop(now + i * 0.07 + 0.18);
+                    });
+                } else if (type === 'wrong') {
+                    const notes = [300, 220];
+                    notes.forEach((freq, i) => {
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = 'sawtooth';
+                        osc.frequency.setValueAtTime(freq, now + i * 0.12);
+                        gain.gain.setValueAtTime(0.12, now + i * 0.12);
+                        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.12 + 0.2);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start(now + i * 0.12);
+                        osc.stop(now + i * 0.12 + 0.2);
+                    });
+                }
+            } catch (e) {
+                console.warn('Web Audio API error:', e);
+            }
+        }
+
+        function toggleAudio() {
+            audioEnabled = !audioEnabled;
+            const icon = document.getElementById('iconAudio');
+            const text = document.getElementById('textAudio');
+            const btn = document.getElementById('btnAudioToggle');
+
+            if (audioEnabled) {
+                icon.className = 'fa-solid fa-volume-high text-base';
+                text.textContent = 'Suara: ON';
+                btn.className = 'flex items-center gap-2 px-4 py-2.5 bg-lime-400 hover:bg-lime-300 text-slate-900 text-xs sm:text-sm font-bold btn-bouncy';
+                playSound('click');
+            } else {
+                icon.className = 'fa-solid fa-volume-xmark text-base';
+                text.textContent = 'Suara: OFF';
+                btn.className = 'flex items-center gap-2 px-4 py-2.5 bg-rose-300 hover:bg-rose-200 text-slate-900 text-xs sm:text-sm font-bold btn-bouncy';
+            }
+        }
+
+        /* ==========================================================================
+           2. NAVIGASI SINGLE PAGE APPLICATION (SPA) & FLIP CARD PEMANTIK
+           ========================================================================== */
+        function navigateTo(sectionId) {
+            playSound('click');
+
+            document.querySelectorAll('.spa-section').forEach(sec => {
+                sec.classList.remove('active');
+            });
+
+            const target = document.getElementById('sec-' + sectionId);
+            if (target) {
+                target.classList.add('active');
+            }
+
+            const btnBackHome = document.getElementById('btnBackHome');
+            if (btnBackHome) {
+                if (sectionId === 'home') {
+                    btnBackHome.classList.add('hidden');
+                    btnBackHome.classList.remove('flex');
+                } else {
+                    btnBackHome.classList.remove('hidden');
+                    btnBackHome.classList.add('flex');
+                }
+            }
+
+            document.querySelectorAll('.nav-pill').forEach(pill => {
+                if (pill.getAttribute('data-nav') === sectionId) {
+                    pill.className = 'nav-pill px-4 py-2 rounded-2xl font-bold bg-pink-400 text-slate-900 border-2 border-slate-900 shadow-[0_3px_0_#1e293b] transition';
+                } else {
+                    pill.className = 'nav-pill px-4 py-2 rounded-2xl font-bold bg-white text-slate-800 border-2 border-slate-900 hover:bg-yellow-200 transition';
+                }
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleFlip(cardId) {
+            playSound('click');
+            const card = document.getElementById(cardId);
+            if (card) {
+                card.classList.toggle('flipped');
+            }
+        }
+
+        /* ==========================================================================
+           3. SISTEM SUB-TAB MATERI BELAJAR
+           ========================================================================== */
+        function switchMateriTab(tabNumber) {
+            playSound('click');
+            for (let i = 1; i <= 5; i++) {
+                const content = document.getElementById('matContent' + i);
+                const btn = document.getElementById('matBtn' + i);
+                if (content) {
+                    if (i === tabNumber) {
+                        content.classList.remove('hidden');
+                    } else {
+                        content.classList.add('hidden');
+                    }
+                }
+                if (btn) {
+                    const spanClass = i === 5 ? 'col-span-2 sm:col-span-1 ' : '';
+                    if (i === tabNumber) {
+                        btn.className = `mat-tab-btn ${spanClass}px-4 py-3.5 text-left btn-bouncy bg-yellow-300 text-slate-900`;
+                    } else {
+                        btn.className = `mat-tab-btn ${spanClass}px-4 py-3.5 text-left btn-bouncy bg-white text-slate-800 hover:bg-amber-100`;
+                    }
+                }
+            }
+        }
+
+        /* ==========================================================================
+           4. SIMULASI INTERAKTIF DOM: INDEKS KERENTANAN MASALAH SOSIAL & SIBER
+           ========================================================================== */
+        function updateSimulation() {
+            const neo = parseInt(document.getElementById('simNeo').value, 10);
+            const budaya = parseInt(document.getElementById('simBudaya').value, 10);
+            const konsum = parseInt(document.getElementById('simKonsum').value, 10);
+            const siber = parseInt(document.getElementById('simSiber').value, 10);
+
+            document.getElementById('valNeo').textContent = neo + '%';
+            document.getElementById('valBudaya').textContent = budaya + '%';
+            document.getElementById('valKonsum').textContent = konsum + '%';
+            document.getElementById('valSiber').textContent = siber + '%';
+
+            // Semakin tinggi literasi siber, semakin rendah risiko kejahatan siber
+            const kerentananSiber = 100 - siber;
+            const riskScore = Math.round((neo * 0.25) + (budaya * 0.25) + (konsum * 0.25) + (kerentananSiber * 0.25));
+
+            document.getElementById('simRiskScore').textContent = `${riskScore} / 100`;
+            document.getElementById('simRiskBar').style.width = `${riskScore}%`;
+
+            const titleEl = document.getElementById('simStatusTitle');
+            if (riskScore >= 70) {
+                titleEl.textContent = '🚨 KRITIS (KERENTANAN SOSIAL & SIBER TINGGI)';
+                titleEl.className = 'text-lg sm:text-xl font-bold text-rose-600 mt-0.5';
+            } else if (riskScore >= 40) {
+                titleEl.textContent = '⚠️ WASPADA SEDANG (PERLU ADAPTASI & LITERASI)';
+                titleEl.className = 'text-lg sm:text-xl font-bold text-amber-600 mt-0.5';
+            } else {
+                titleEl.textContent = '✅ TANGGUH & BERDAULAT (MASYARAKAT BERDAYA)';
+                titleEl.className = 'text-lg sm:text-xl font-bold text-emerald-600 mt-0.5';
+            }
+
+            let findings = [];
+
+            if (neo >= 60) {
+                findings.push(`<li><strong>Neokolonialisme & Ekologi (${neo}%):</strong> Ketergantungan tinggi pada ekspor bahan mentah dan impor teknologi asing (Dipoyudo, 2023) serta risiko eksploitasi lingkungan oleh MNC (Maravel, 2023).</li>`);
+            } else {
+                findings.push(`<li><strong>Kedaulatan Ekonomi & Alam (${neo}%):</strong> Sektor publik terlindungi dan aktivitas industri lebih terkendali secara ekologis.</li>`);
+            }
+
+            if (budaya >= 60) {
+                findings.push(`<li><strong>Kesenjangan Budaya (${budaya}%):</strong> Masyarakat rentan mengalami <em>Culture Shock</em> (bingung, takut dibohongi) dan <em>Cultural Lag</em> akibat laju teknologi yang lebih cepat dari kesiapan mental.</li>`);
+            } else {
+                findings.push(`<li><strong>Adaptasi Budaya (${budaya}%):</strong> Masyarakat dan kepemimpinan organisasi mampu berinovasi mengikuti perubahan zaman.</li>`);
+            }
+
+            if (konsum >= 60) {
+                findings.push(`<li><strong>Konsumerisme & Hedonisme (${konsum}%):</strong> Dominasi keinginan (<em>wants</em>) di atas kebutuhan (<em>needs</em>) memicu kecemasan finansial (Nazarudin & Widiastuti, 2022).</li>`);
+            } else {
+                findings.push(`<li><strong>Gaya Hidup Bijak (${konsum}%):</strong> Masyarakat mengutamakan kebutuhan (<em>needs</em>) dibandingkan simbol status di media sosial.</li>`);
+            }
+
+            if (siber <= 45) {
+                findings.push(`<li><strong>Keamanan Siber Rendah (${siber}%):</strong> Warga sangat rentan menjadi korban <em>Phishing</em>, infeksi <em>Malware</em>, gangguan <em>DoS</em>, dan <em>Cyberbullying</em> (Raodia, 2019).</li>`);
+            } else {
+                findings.push(`<li><strong>Ketahanan Siber Kuat (${siber}%):</strong> Warga mampu mengenali penipuan <em>Phishing</em>, menjaga keamanan perangkat dari <em>Malware</em>, dan beretika di ruang virtual.</li>`);
+            }
+
+            document.getElementById('simAnalysisText').innerHTML = `<ul class="list-disc list-inside space-y-1.5">${findings.join('')}</ul>`;
+        }
+
+        function resetSimulation() {
+            playSound('click');
+            document.getElementById('simNeo').value = 65;
+            document.getElementById('simBudaya').value = 70;
+            document.getElementById('simKonsum').value = 80;
+            document.getElementById('simSiber').value = 30;
+            updateSimulation();
+        }
+
+        /* ==========================================================================
+           5. MINI GAME KLASIFIKASI 2 WADAH (DRAG & DROP + TOUCH FALLBACK)
+           ========================================================================== */
+        const sortingItemsData = [
+            { id: 'item1', text: 'Negara berkembang bergantung pada ekspor komoditas primer & impor barang jadi/teknologi (Neokolonialisme)', category: 'non-siber' },
+            { id: 'item2', text: 'Pelaku menyamar sebagai pihak bank tepercaya untuk mencuri username, password, dan kartu kredit (Phishing)', category: 'siber' },
+            { id: 'item3', text: 'Masyarakat mengalami kebingungan dan resistensi saat menghadapi masuknya budaya asing baru (Culture Shock)', category: 'non-siber' },
+            { id: 'item4', text: 'Perangkat lunak jahat menyusup lewat unduhan internet untuk merusak sistem komputer tanpa izin (Malware)', category: 'siber' },
+            { id: 'item5', text: 'Membeli barang mewah demi simbol status karena dorongan keinginan (wants) di atas kebutuhan (Konsumerisme)', category: 'non-siber' },
+            { id: 'item6', text: 'Hacker mengirim permintaan palsu bertubi-tubi hingga server layanan publik menjadi down dan crash (Serangan DoS)', category: 'siber' },
+            { id: 'item7', text: 'Eksploitasi agresif perusahaan multinasional sejak 1970 yang mencemari tanah, air, udara, dan hutan (Lingkungan)', category: 'non-siber' },
+            { id: 'item8', text: 'Mengirimkan pesan atau gambar melalui internet untuk mengintimidasi dan mempermalukan orang lain (Cyberbullying)', category: 'siber' }
+        ];
+
+        let gameCardsState = [];
+        let selectedCardId = null;
+
+        function initSortingGame() {
+            playSound('click');
+            selectedCardId = null;
+            const feedback = document.getElementById('gameFeedback');
+            if (feedback) feedback.classList.add('hidden');
+
+            gameCardsState = sortingItemsData
+                .map(item => ({ ...item, currentZone: 'pool', validated: null }))
+                .sort(() => Math.random() - 0.5);
+
+            renderSortingGame();
+        }
+
+        function renderSortingGame() {
+            const poolEl = document.getElementById('poolContainer');
+            const nonSiberEl = document.getElementById('itemsNonSiber');
+            const siberEl = document.getElementById('itemsSiber');
+            const remainingBadge = document.getElementById('gameRemainingCount');
+
+            poolEl.innerHTML = '';
+            nonSiberEl.innerHTML = '';
+            siberEl.innerHTML = '';
+
+            let poolCount = 0;
+
+            gameCardsState.forEach(card => {
+                if (card.currentZone === 'pool') poolCount++;
+
+                const cardEl = document.createElement('div');
+                cardEl.setAttribute('draggable', 'true');
+                cardEl.ondragstart = (e) => {
+                    e.dataTransfer.setData('text/plain', card.id);
+                    selectedCardId = card.id;
+                };
+
+                cardEl.onclick = (e) => {
+                    e.stopPropagation();
+                    playSound('click');
+                    if (selectedCardId === card.id) {
+                        selectedCardId = null;
+                    } else {
+                        selectedCardId = card.id;
+                    }
+                    renderSortingGame();
+                };
+
+                const isSelected = selectedCardId === card.id;
+                let borderAndBg = 'bg-white border-slate-900';
+                if (isSelected) {
+                    borderAndBg = 'bg-yellow-300 border-slate-900 ring-4 ring-pink-400 scale-[1.02]';
+                } else if (card.validated === true) {
+                    borderAndBg = 'bg-lime-200 border-slate-900';
+                } else if (card.validated === false) {
+                    borderAndBg = 'bg-rose-200 border-slate-900';
+                }
+
+                cardEl.className = `p-3.5 rounded-2xl border-2 ${borderAndBg} shadow-[0_4px_0_#1e293b] text-xs sm:text-sm font-bold text-slate-900 cursor-pointer transition flex items-start justify-between gap-2 select-none`;
+                if (card.currentZone === 'pool') {
+                    cardEl.classList.add('w-full', 'sm:w-[calc(50%-0.5rem)]');
+                }
+
+                let badgeStatus = '';
+                if (card.validated === true) {
+                    badgeStatus = '<i class="fa-solid fa-circle-check text-emerald-700 text-base shrink-0 mt-0.5"></i>';
+                } else if (card.validated === false) {
+                    badgeStatus = '<i class="fa-solid fa-circle-xmark text-rose-700 text-base shrink-0 mt-0.5"></i>';
+                } else if (isSelected) {
+                    badgeStatus = '<span class="px-2 py-0.5 rounded-lg bg-pink-500 text-white text-[10px] font-cartoon shrink-0">DIPILIH</span>';
+                }
+
+                cardEl.innerHTML = `
+                    <span>${card.text}</span>
+                    ${badgeStatus}
+                `;
+
+                if (card.currentZone === 'pool') {
+                    poolEl.appendChild(cardEl);
+                } else if (card.currentZone === 'non-siber') {
+                    nonSiberEl.appendChild(cardEl);
+                } else if (card.currentZone === 'siber') {
+                    siberEl.appendChild(cardEl);
+                }
+            });
+
+            if (poolCount === 0) {
+                poolEl.innerHTML = `<div class="w-full text-center py-4 text-xs sm:text-sm font-bold text-slate-700">✨ Semua kartu sudah dimasukkan ke dalam keranjang! Klik tombol <strong>"Periksa Jawaban"</strong> di atas.</div>`;
+            }
+
+            if (remainingBadge) {
+                remainingBadge.textContent = `Belum dikelompokkan: ${poolCount} kartu`;
+            }
+        }
+
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        function dropToZone(event, targetZone) {
+            event.preventDefault();
+            const cardId = event.dataTransfer.getData('text/plain') || selectedCardId;
+            if (!cardId) return;
+            moveCardToZone(cardId, targetZone);
+        }
+
+        function handleZoneTap(targetZone) {
+            if (!selectedCardId) return;
+            moveCardToZone(selectedCardId, targetZone);
+        }
+
+        function moveCardToZone(cardId, targetZone) {
+            const card = gameCardsState.find(c => c.id === cardId);
+            if (card) {
+                card.currentZone = targetZone;
+                card.validated = null;
+                selectedCardId = null;
+                playSound('click');
+                renderSortingGame();
+            }
+        }
+
+        function validateSortingGame() {
+            const feedback = document.getElementById('gameFeedback');
+            const unplaced = gameCardsState.filter(c => c.currentZone === 'pool').length;
+
+            if (unplaced > 0) {
+                playSound('wrong');
+                feedback.className = 'mb-6 p-4 rounded-2xl border-3 border-slate-900 bg-amber-200 text-slate-900 text-sm font-bold shadow-[0_4px_0_#1e293b]';
+                feedback.innerHTML = `<i class="fa-solid fa-circle-exclamation mr-1.5"></i> Masih ada <strong>${unplaced} kartu</strong> yang belum dimasukkan ke dalam keranjang! Masukkan semuanya terlebih dahulu ya.`;
+                feedback.classList.remove('hidden');
+                return;
+            }
+
+            let correctCount = 0;
+            gameCardsState.forEach(card => {
+                if (card.currentZone === card.category) {
+                    card.validated = true;
+                    correctCount++;
+                } else {
+                    card.validated = false;
+                }
+            });
+
+            renderSortingGame();
+
+            if (correctCount === gameCardsState.length) {
+                playSound('correct');
+                if (typeof confetti === 'function') {
+                    confetti({ particleCount: 90, spread: 70, origin: { y: 0.6 } });
+                }
+                feedback.className = 'mb-6 p-4 rounded-2xl border-3 border-slate-900 bg-lime-300 text-slate-900 text-sm font-bold shadow-[0_4px_0_#1e293b]';
+                feedback.innerHTML = `🎉 <strong>Luar Biasa! Sempurna (${correctCount}/${gameCardsState.length} Benar)!</strong> Kamu berhasil membedakan masalah sosial struktural-kultural-ekologis dengan kejahatan siber (Cybercrime)!`;
+            } else {
+                playSound('wrong');
+                feedback.className = 'mb-6 p-4 rounded-2xl border-3 border-slate-900 bg-rose-200 text-slate-900 text-sm font-bold shadow-[0_4px_0_#1e293b]';
+                feedback.innerHTML = `💡 <strong>Skor Klasifikasi: ${correctCount} dari ${gameCardsState.length} tepat.</strong> Kartu berwarna merah muda masih berada di keranjang yang kurang tepat. Klik kartu tersebut untuk memindahkannya!`;
+            }
+            feedback.classList.remove('hidden');
+        }
+
+        /* ==========================================================================
+           6. ENGINE KUIS TKA (20 SOAL A-E: PILIHAN GANDA BIASA & KOMPLEKS)
+           ========================================================================== */
+        const quizQuestions = [
+            {
+                type: 'single',
+                indicator: 'Indikator 1 • Neokolonialisme',
+                question: '1. Ketika globalisasi dipahami sebagai liberalisasi yang menguntungkan korporat atau perusahaan besar hingga meminggirkan sektor publik, muncul praktik dominasi negara kuat terhadap negara lain secara tidak langsung tanpa kekerasan militer. Konsep ini disebut ....',
+                options: [
+                    'A. Imperialisme militer klasik',
+                    'B. Neokolonialisme',
+                    'C. Ketertinggalan budaya (Cultural Lag)',
+                    'D. Gegar budaya (Culture Shock)',
+                    'E. Konsumerisme digital'
+                ],
+                correct: 1,
+                explanation: 'Neokolonialisme merupakan konsep saat suatu negara mendominasi negara lain secara tidak langsung tanpa menggunakan kekerasan, melainkan melalui hubungan bilateral, pengaruh budaya, dan bantuan ekonomi.'
+            },
+            {
+                type: 'single',
+                indicator: 'Indikator 1 • Pola Ketergantungan (Dipoyudo, 2023)',
+                question: '2. Menurut Dipoyudo (2023), negara-negara bekas jajahan memang telah memperoleh kemerdekaan politik, tetapi masih bergantung secara ekonomi pada negara industri maju terutama dalam hal ....',
+                options: [
+                    'A. Ekspor barang industri teknologi tinggi dan impor bahan mentah',
+                    'B. Pengiriman bantuan militer dan penempatan pangkalan perang asing',
+                    'C. Ekspor komoditas primer serta impor barang jadi, modal, teknologi, dan keahlian manajemen',
+                    'D. Penghapusan seluruh perdagangan bilateral dengan negara Barat',
+                    'E. Penguasaan saham mayoritas perusahaan multinasional di negara maju'
+                ],
+                correct: 2,
+                explanation: 'Menurut Dipoyudo (2023), ketergantungan negara bekas jajahan terkait kegiatan ekspor komoditas primer serta kegiatan impor barang jadi, modal, teknologi, dan keahlian manajemen dari negara-negara industri.'
+            },
+            {
+                type: 'complex',
+                indicator: 'Indikator 1 • Mekanisme Neokolonialisme',
+                question: '3. [PILIHAN GANDA KOMPLEKS] Berdasarkan materi, neokolonialisme bekerja mendominasi negara lain secara tidak langsung tanpa menggunakan kekerasan fisik/militer, melainkan melalui saluran apa saja? (Pilih semua jawaban yang benar)',
+                options: [
+                    'A. Hubungan bilateral antarnegara',
+                    'B. Pengaruh budaya asing',
+                    'C. Bantuan ekonomi yang mengikat ketergantungan',
+                    'D. Invasi bersenjata dan pendudukan wilayah paksa',
+                    'E. Pola hubungan ekonomi warisan masa kolonial (ekspor bahan mentah & impor teknologi)'
+                ],
+                correct: [0, 1, 2, 4],
+                explanation: 'Neokolonialisme mendominasi tanpa kekerasan melalui: (A) hubungan bilateral, (B) pengaruh budaya, (C) bantuan ekonomi, serta (E) mempertahankan pola hubungan ekonomi masa kolonial.'
+            },
+            {
+                type: 'single',
+                indicator: 'Indikator 2 • Gegar Budaya (Culture Shock)',
+                question: '4. Kondisi ketika masyarakat belum siap menerima unsur-unsur kebudayaan asing yang berbeda dengan kebudayaan sendiri sehingga mengalami kebingungan, merasa tidak berdaya, mudah terpancing emosi, serta takut dibohongi dan diacuhkan disebut ....',
+                options: [
+                    'A. Ketertinggalan budaya (Cultural Lag)',
+                    'B. Gegar budaya (Culture Shock)',
+                    'C. Neokolonialisme ekonomi',
+                    'D. Gaya hidup hedonisme',
+                    'E. Serangan Denial of Service (DoS)'
+                ],
+                correct: 1,
+                explanation: 'Gegar budaya (culture shock) adalah kondisi ketika masyarakat belum siap menerima unsur-unsur kebudayaan asing sehingga muncul kebingungan, resistensi, perasaan tidak berdaya, mudah emosi, serta takut dibohongi dan diacuhkan.'
+            },
+            {
+                type: 'complex',
+                indicator: 'Indikator 2 • Gejala Culture Shock',
+                question: '5. [PILIHAN GANDA KOMPLEKS] Manakah di antara pernyataan berikut yang merupakan gejala atau karakteristik dari Gegar Budaya (Culture Shock) menurut materi? (Pilih semua jawaban yang benar)',
+                options: [
+                    'A. Mengalami kebingungan dan resistensi terhadap perubahan budaya',
+                    'B. Muncul perasaan tidak berdaya serta mudah terpancing emosi',
+                    'C. Merasa takut akan dibohongi dan diacuhkan di lingkungan baru',
+                    'D. Timbul pemikiran negatif terhadap kebudayaan baru akibat kesenjangan budaya lama dan baru',
+                    'E. Kemampuan organisasi berinovasi dengan sangat cepat melampaui teknologi'
+                ],
+                correct: [0, 1, 2, 3],
+                explanation: 'Opsi A, B, C, dan D secara eksplisit disebutkan dalam materi sebagai gejala gegar budaya (culture shock).'
+            },
+            {
+                type: 'single',
+                indicator: 'Indikator 2 • Ketertinggalan Budaya (Cultural Lag)',
+                question: '6. Di sebuah instansi maupun kelompok masyarakat, perangkat teknologi informasi sudah diperbarui ke sistem digital terbaru, namun pola kerja dan aturan organisasi masih terjebak pada kebiasaan lama yang usang serta tidak ada kepemimpinan yang mendorong perubahan. Fenomena tidak seimbangnya laju perubahan unsur budaya yang saling berkorelasi ini disebut ....',
+                options: [
+                    'A. Gegar budaya (Culture Shock)',
+                    'B. Ketertinggalan budaya (Cultural Lag)',
+                    'C. Pencurian data (Phishing)',
+                    'D. Konsumerisme ekstrem',
+                    'E. Liberalisasi korporat'
+                ],
+                correct: 1,
+                explanation: 'Ketertinggalan budaya (cultural lag) adalah kondisi tidak seimbangnya unsur-unsur kebudayaan akibat perbedaan laju perubahan antara unsur budaya yang berkorelasi, terjebak pola budaya usang, dan ketiadaan kepemimpinan pendorong perubahan.'
+            },
+            {
+                type: 'complex',
+                indicator: 'Indikator 2 • Penyebab Cultural Lag',
+                question: '7. [PILIHAN GANDA KOMPLEKS] Berdasarkan materi, apa saja kondisi yang menyebabkan terjadinya Ketertinggalan Budaya (Cultural Lag) di masyarakat atau organisasi? (Pilih semua jawaban yang benar)',
+                options: [
+                    'A. Budaya organisasi tidak sejalan dengan tuntutan lingkungan yang berubah cepat',
+                    'B. Perbedaan laju perubahan yang tidak sebanding antara unsur-unsur kebudayaan yang berkorelasi',
+                    'C. Kelompok masyarakat terjebak dalam pola-pola budaya yang sudah usang',
+                    'D. Tidak adanya kepemimpinan yang mendorong ke arah perubahan',
+                    'E. Serangan hacker yang membanjiri server dengan trafik palsu'
+                ],
+                correct: [0, 1, 2, 3],
+                explanation: 'Ketertinggalan budaya disebabkan oleh budaya organisasi yang tidak sejalan dengan tuntutan lingkungan (A), perbedaan laju perubahan unsur budaya yang berkorelasi (B), terjebak pola budaya usang (C), dan tidak adanya kepemimpinan yang mendorong perubahan (D).'
+            },
+            {
+                type: 'single',
+                indicator: 'Indikator 2 • Faktor Hedonisme (Prajabti, 2017)',
+                question: '8. Menurut Prajabti (2017), gaya hidup hedonisme seseorang dipengaruhi oleh faktor internal dan faktor eksternal. Contoh faktor eksternal yang mendorong seorang remaja bergaya hidup hedonis adalah ....',
+                options: [
+                    'A. Keyakinan pribadi dari dalam hati individu untuk hidup mewah',
+                    'B. Pengaruh kelompok teman sebaya, lingkungan tempat tinggal, dan pergaulan sehari-hari',
+                    'C. Serangan perangkat lunak berbahaya (malware) pada ponsel pintar',
+                    'D. Kebijakan ekspor komoditas primer oleh pemerintah',
+                    'E. Kerusakan ekosistem pantai dan pegunungan'
+                ],
+                correct: 1,
+                explanation: 'Menurut Prajabti (2017), faktor eksternal mencakup pengaruh dari lingkungan luar individu, seperti kelompok teman, lingkungan tempat tinggal, serta pergaulan sehari-hari.'
+            },
+            {
+                type: 'single',
+                indicator: 'Indikator 2 • Konsumerisme (Suciptaningsih, 2017)',
+                question: '9. Suciptaningsih (2017) mendefinisikan pola hidup yang mendorong individu melakukan proses konsumsi secara berlebihan/tidak terkendali secara sadar dan berkelanjutan, serta menganggap barang-barang mewah sebagai ukuran kebahagiaan, kesenangan, dan kesuksesan sebagai ....',
+                options: [
+                    'A. Neokolonialisme',
+                    'B. Ketertinggalan budaya',
+                    'C. Konsumerisme',
+                    'D. Perundungan siber',
+                    'E. Kedaulatan ekonomi'
+                ],
+                correct: 2,
+                explanation: 'Definisi tersebut merupakan pengertian konsumerisme menurut Suciptaningsih (2017).'
+            },
+            {
+                type: 'complex',
+                indicator: 'Indikator 2 • Konsumerisme & Dampak Psikologis',
+                question: '10. [PILIHAN GANDA KOMPLEKS] Berdasarkan kajian Nazarudin & Widiastuti (2022) serta materi Konsumerisme dan Hedonisme, manakah pernyataan yang tepat mengenai perilaku konsumtif di era digital? (Pilih semua jawaban yang benar)',
+                options: [
+                    'A. Lebih mementingkan faktor keinginan (wants) dibandingkan kebutuhan (needs)',
+                    'B. Diperparah oleh pergeseran aktivitas ke dunia maya seperti media sosial dan aplikasi jual-beli daring',
+                    'C. Pembelian sering dilakukan tanpa pertimbangan finansial yang memadai',
+                    'D. Ketika keinginan tidak terpenuhi karena keterbatasan finansial, dapat memicu rasa cemas dan tidak aman secara psikologis',
+                    'E. Selalu meningkatkan ketenangan batin dan kemandirian finansial remaja'
+                ],
+                correct: [0, 1, 2, 3],
+                explanation: 'Sifat konsumtif mengutamakan keinginan (wants) di atas kebutuhan (needs), diperparah media sosial & belanja daring, dilakukan tanpa pertimbangan finansial memadai, serta memicu kecemasan dan rasa tidak aman ketika keinginan tak terpenuhi.'
+            },
+            {
+                type: 'single',
+                indicator: 'Indikator 1 • Kerusakan Lingkungan (Maravel, 2023)',
+                question: '11. Menurut Maravel (2023), sejak tahun 1970 pelaku utama yang melakukan kegiatan ekonomi secara agresif melampaui batas wilayah negaranya dengan cara ekspansif dan eksploitatif hingga memicu kerusakan lingkungan adalah ....',
+                options: [
+                    'A. Usaha mikro dan koperasi pedesaan lokal',
+                    'B. Perusahaan multinasional (Multinational Corporations)',
+                    'C. Lembaga konservasi hutan adat',
+                    'D. Kelompok pengguna media sosial remaja',
+                    'E. Organisasi kemanusiaan internasional'
+                ],
+                correct: 1,
+                explanation: 'Sejak tahun 1970, perusahaan multinasional telah memulai kegiatan ekonomi secara agresif melampaui batas wilayah dengan cara ekspansif dan eksploitatif (Maravel, 2023).'
+            },
+            {
+                type: 'single',
+                indicator: 'Indikator 1 • Dampak Ekologis (Maravel, 2023)',
+                question: '12. Kegiatan ekonomi perusahaan multinasional yang ekspansif dan eksploitatif mengabaikan dampak lingkungan. Berikut ini yang BUKAN termasuk permasalahan lingkungan yang disebutkan oleh Maravel (2023) dalam materi adalah ....',
+                options: [
+                    'A. Pencemaran tanah, air, udara, dan suara',
+                    'B. Kerusakan hutan dan tanaman',
+                    'C. Kerusakan kawasan pantai dan pegunungan',
+                    'D. Potensi bencana alam yang mengancam kehidupan manusia',
+                    'E. Peningkatan kesuburan tanah dan kelestarian hutan hujan tropis'
+                ],
+                correct: 4,
+                explanation: 'Dampak ekspansi perusahaan multinasional menurut Maravel (2023) meliputi pencemaran tanah, air, udara, suara, kerusakan hutan, pantai, pegunungan, dan tanaman yang berpotensi memicu bencana alam.'
+            },
+            {
+                type: 'single',
+                indicator: 'Indikator 3 • Definisi Kejahatan Siber (Raodia, 2019)',
+                question: '13. Menurut Raodia (2019), tindakan melanggar hukum yang dilakukan melalui internet dengan memanfaatkan kecanggihan teknologi komputer, telekomunikasi, dan teknologi informasi disebut ....',
+                options: [
+                    'A. Kejahatan siber (Cybercrime)',
+                    'B. Gegar budaya (Culture Shock)',
+                    'C. Ketimpangan budaya (Cultural Lag)',
+                    'D. Neokolonialisme bilateral',
+                    'E. Eksploitasi sumber daya primer'
+                ],
+                correct: 0,
+                explanation: 'Kejahatan siber adalah tindakan melanggar hukum yang dilakukan melalui internet dengan memanfaatkan teknologi komputer, telekomunikasi, dan teknologi informasi yang canggih (Raodia, 2019).'
+            },
+            {
+                type: 'complex',
+                indicator: 'Indikator 3 • Sasaran Phishing (Tabrani dkk., 2024)',
+                question: '14. [PILIHAN GANDA KOMPLEKS] Dalam kejahatan Pencurian Data (Phishing), pelaku menyamar sebagai entitas tepercaya untuk mengincar data rahasia/sensitif korban. Menurut Tabrani, dkk. (2024), kategori dan rincian data yang menjadi sasaran phishing meliputi .... (Pilih semua jawaban yang benar)',
+                options: [
+                    'A. Data pribadi (nama, umur, dan alamat)',
+                    'B. Data rekening (username dan password)',
+                    'C. Data keuangan (kartu kredit dan informasi rekening)',
+                    'D. Penyalahgunaan akun pada sektor keuangan atau dijual ke pihak lain',
+                    'E. Bantuan modal teknologi dari negara industri maju'
+                ],
+                correct: [0, 1, 2, 3],
+                explanation: 'Sasaran phishing meliputi data pribadi (nama, umur, alamat), data rekening (username & password), serta data keuangan (kartu kredit & informasi rekening) yang dapat digunakan menipu langsung atau dijual ke pihak lain (Tabrani dkk., 2024).'
+            },
+            {
+                type: 'single',
+                indicator: 'Indikator 3 • Pencurian Data (Phishing)',
+                question: '15. Seseorang menerima pesan elektronik yang tampak persis seperti pengumuman resmi dari bank tempat ia menabung, lalu diminta memasukkan username, password, dan nomor kartu kredit pada tautan palsu. Bentuk kejahatan siber ini disebut ....',
+                options: [
+                    'A. Serangan DoS (Denial of Service)',
+                    'B. Perundungan siber (Cyberbullying)',
+                    'C. Pencurian data (Phishing)',
+                    'D. Ketertinggalan budaya (Cultural Lag)',
+                    'E. Neokolonialisme korporat'
+                ],
+                correct: 2,
+                explanation: 'Phishing adalah penipuan daring di mana pelaku berupaya memperoleh informasi rahasia/sensitif dari korban dengan menyamar sebagai entitas tepercaya.'
+            },
+            {
+                type: 'single',
+                indicator: 'Indikator 3 • Penyebaran Malware',
+                question: '16. Perangkat lunak berbahaya yang dibuat khusus untuk menyusup atau merusak sistem komputer, server, atau jaringan komputer tanpa izin pemiliknya melalui email, unduhan internet, atau program terinfeksi disebut ....',
+                options: [
+                    'A. Malware',
+                    'B. Cyberbullying',
+                    'C. Culture Shock',
+                    'D. Hedonisme',
+                    'E. Liberalisasi'
+                ],
+                correct: 0,
+                explanation: 'Malware merupakan perangkat lunak yang dibuat untuk menyusup atau merusak sistem komputer, server, atau jaringan komputer tanpa izin dari pemiliknya.'
+            },
+            {
+                type: 'complex',
+                indicator: 'Indikator 3 • Karakteristik Malware & DoS',
+                question: '17. [PILIHAN GANDA KOMPLEKS] Manakah pernyataan di bawah ini yang tepat mengenai mekanisme Penyebaran Malware dan Serangan DoS (Denial of Service)? (Pilih semua jawaban yang benar)',
+                options: [
+                    'A. Malware dapat menyebar melalui email, unduhan dari internet, atau program yang sudah terinfeksi sebelumnya',
+                    'B. Malware menyebabkan kerusakan pada sistem komputer dan memungkinkan terjadinya pencurian data',
+                    'C. Serangan DoS bertujuan menghabiskan sumber daya sistem jaringan sehingga tidak dapat beroperasi dengan benar',
+                    'D. Pada serangan DoS, hacker mengirim permintaan palsu terus-menerus hingga server down, hang, dan crash',
+                    'E. Serangan DoS membuat layanan server menjadi jauh lebih cepat diakses oleh masyarakat umum'
+                ],
+                correct: [0, 1, 2, 3],
+                explanation: 'Pernyataan A, B, C, dan D sesuai dengan materi: Malware menyebar lewat email/unduhan dan merusak sistem, sedangkan DoS menghabiskan sumber daya server dengan permintaan palsu hingga down, hang, dan crash.'
+            },
+            {
+                type: 'single',
+                indicator: 'Indikator 3 • Serangan DoS (Denial of Service)',
+                question: '18. Sebuah situs layanan publik tiba-tiba tidak dapat diakses oleh warga karena seorang hacker mengirimkan ribuan permintaan layanan palsu secara terus-menerus hingga sumber daya server habis dan mengalami crash. Kejahatan siber ini adalah ....',
+                options: [
+                    'A. Pencurian data (Phishing)',
+                    'B. Serangan DoS (Denial of Service)',
+                    'C. Perundungan siber (Cyberbullying)',
+                    'D. Gegar budaya (Culture Shock)',
+                    'E. Konsumerisme daring'
+                ],
+                correct: 1,
+                explanation: 'Serangan Denial of Service (DoS) menghabiskan sumber daya sistem dengan mengirimkan permintaan layanan palsu terus-menerus sehingga server down, hang, dan crash.'
+            },
+            {
+                type: 'single',
+                indicator: 'Indikator 3 • Perundungan Siber (Cyberbullying)',
+                question: '19. Tindakan intimidasi di lingkungan virtual melalui sarana elektronik seperti telepon atau internet dengan mengirimkan pesan atau gambar yang bertujuan melukai, menyakiti, atau membuat malu orang lain disebut ....',
+                options: [
+                    'A. Perundungan siber (Cyberbullying)',
+                    'B. Serangan DoS (Denial of Service)',
+                    'C. Penyebaran Malware jaringan',
+                    'D. Ketertinggalan budaya (Cultural Lag)',
+                    'E. Neokolonialisme budaya'
+                ],
+                correct: 0,
+                explanation: 'Perundungan siber (cyberbullying) adalah bentuk intimidasi melalui sarana elektronik (telepon/internet) dengan mengirimkan pesan atau gambar untuk melukai, menyakiti, atau membuat malu orang lain.'
+            },
+            {
+                type: 'complex',
+                indicator: 'Indikator 1, 2, & 3 • Sintesis Ragam Masalah Sosial',
+                question: '20. [PILIHAN GANDA KOMPLEKS] Berdasarkan keseluruhan materi "Ragam Masalah Sosial Akibat Globalisasi dan Era Digital", manakah pasangan konsep dan rujukan ahli/definisinya yang TEPAT? (Pilih semua jawaban yang benar)',
+                options: [
+                    'A. Dipoyudo (2023): Ketergantungan negara bekas jajahan pada ekspor komoditas primer dan impor barang jadi/teknologi',
+                    'B. Prajabti (2017): Faktor internal (keyakinan pribadi) dan eksternal (teman/pergaulan) pada gaya hidup hedonisme',
+                    'C. Nazarudin & Widiastuti (2022): Sifat konsumtif lebih mementingkan keinginan (wants) daripada kebutuhan (needs)',
+                    'D. Maravel (2023): Ekspansi agresif dan eksploitatif perusahaan multinasional sejak 1970 yang merusak lingkungan',
+                    'E. Raodia (2019) & Tabrani dkk. (2024): Kajian tentang kejahatan siber (cybercrime) dan pencurian data (phishing)'
+                ],
+                correct: [0, 1, 2, 3, 4],
+                explanation: 'Kelima opsi (A, B, C, D, dan E) merangkum dengan tepat seluruh rujukan ahli yang terdapat pada naskah materi pembelajaran Sosiologi Kelas XII.'
+            }
+        ];
+
+        let currentQuizIndex = 0;
+        let currentQuizScore = 0;
+        let correctQuestionCount = 0;
+        let quizAnswered = false;
+        let selectedComplexIndices = [];
+
+        function renderQuizQuestion() {
+            const q = quizQuestions[currentQuizIndex];
+            quizAnswered = false;
+            selectedComplexIndices = [];
+
+            document.getElementById('quizProgressText').textContent = `${currentQuizIndex + 1} / ${quizQuestions.length}`;
+            document.getElementById('quizLiveScore').textContent = currentQuizScore;
+            document.getElementById('quizProgressBar').style.width = `${((currentQuizIndex + 1) / quizQuestions.length) * 100}%`;
+
+            document.getElementById('quizIndicatorBadge').textContent = q.indicator;
+            document.getElementById('quizQuestionText').textContent = q.question;
+
+            const typeBadge = document.getElementById('quizTypeBadge');
+            const instructionBanner = document.getElementById('quizInstructionBanner');
+            const complexWrapper = document.getElementById('complexSubmitWrapper');
+
+            if (q.type === 'complex') {
+                typeBadge.className = 'inline-block px-3.5 py-1 rounded-xl bg-purple-300 border-2 border-slate-900 text-slate-900 text-xs font-cartoon font-bold shadow-[0_2px_0_#1e293b]';
+                typeBadge.textContent = '☑️ TKA: Pilihan Ganda Kompleks (Lebih dari 1 Jawaban)';
+                instructionBanner.innerHTML = `<i class="fa-solid fa-list-check text-purple-600"></i><span>Centang <strong>semua opsi jawaban yang benar</strong>, lalu klik tombol <strong>"Kunci Jawaban Kompleks"</strong>!</span>`;
+                complexWrapper.classList.remove('hidden');
+                document.getElementById('complexSelectedCounter').textContent = '0 opsi dipilih';
+                document.getElementById('btnSubmitComplex').disabled = false;
+                document.getElementById('btnSubmitComplex').classList.remove('opacity-50', 'cursor-not-allowed');
+            } else {
+                typeBadge.className = 'inline-block px-3.5 py-1 rounded-xl bg-sky-300 border-2 border-slate-900 text-slate-900 text-xs font-cartoon font-bold shadow-[0_2px_0_#1e293b]';
+                typeBadge.textContent = '📌 TKA: Pilihan Ganda Biasa';
+                instructionBanner.innerHTML = `<i class="fa-solid fa-circle-info text-sky-600"></i><span>Pilih <strong>1 opsi jawaban (A, B, C, D, atau E)</strong> yang paling tepat!</span>`;
+                complexWrapper.classList.add('hidden');
+            }
+
+            document.getElementById('quizExplanationBox').classList.add('hidden');
+            document.getElementById('btnNextQuestion').classList.add('hidden');
+
+            const optionsContainer = document.getElementById('quizOptionsContainer');
+            optionsContainer.innerHTML = '';
+
+            q.options.forEach((optText, idx) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.id = `quizOptBtn_${idx}`;
+                btn.className = 'w-full text-left p-4 rounded-2xl bg-white hover:bg-sky-100 border-3 border-slate-900 shadow-[0_4px_0_#1e293b] font-bold text-xs sm:text-sm text-slate-900 transition flex items-center justify-between gap-3';
+                btn.style.border = '3px solid #1E293B';
+
+                const indicatorIcon = q.type === 'complex'
+                    ? `<span id="quizOptCheck_${idx}" class="w-6 h-6 rounded-lg bg-slate-100 border-2 border-slate-900 flex items-center justify-center shrink-0"><i class="fa-solid fa-check text-transparent text-xs"></i></span>`
+                    : `<span class="w-6 h-6 rounded-full bg-slate-100 border-2 border-slate-900 flex items-center justify-center shrink-0 text-[11px] font-cartoon">${String.fromCharCode(65 + idx)}</span>`;
+
+                btn.innerHTML = `
+                    <span class="leading-relaxed">${optText}</span>
+                    ${indicatorIcon}
+                `;
+
+                btn.onclick = () => handleOptionClick(idx);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function handleOptionClick(idx) {
+            if (quizAnswered) return;
+            const q = quizQuestions[currentQuizIndex];
+
+            if (q.type === 'single') {
+                evaluateSingleAnswer(idx);
+            } else {
+                playSound('click');
+                const pos = selectedComplexIndices.indexOf(idx);
+                if (pos === -1) {
+                    selectedComplexIndices.push(idx);
+                } else {
+                    selectedComplexIndices.splice(pos, 1);
+                }
+
+                // Update visual checkbox state
+                q.options.forEach((_, i) => {
+                    const btn = document.getElementById(`quizOptBtn_${i}`);
+                    const chk = document.getElementById(`quizOptCheck_${i}`);
+                    if (selectedComplexIndices.includes(i)) {
+                        btn.className = 'w-full text-left p-4 rounded-2xl bg-purple-200 border-3 border-slate-900 shadow-[0_4px_0_#1e293b] font-bold text-xs sm:text-sm text-slate-900 transition flex items-center justify-between gap-3';
+                        chk.className = 'w-6 h-6 rounded-lg bg-purple-500 border-2 border-slate-900 flex items-center justify-center shrink-0';
+                        chk.innerHTML = '<i class="fa-solid fa-check text-white text-xs"></i>';
+                    } else {
+                        btn.className = 'w-full text-left p-4 rounded-2xl bg-white hover:bg-sky-100 border-3 border-slate-900 shadow-[0_4px_0_#1e293b] font-bold text-xs sm:text-sm text-slate-900 transition flex items-center justify-between gap-3';
+                        chk.className = 'w-6 h-6 rounded-lg bg-slate-100 border-2 border-slate-900 flex items-center justify-center shrink-0';
+                        chk.innerHTML = '<i class="fa-solid fa-check text-transparent text-xs"></i>';
+                    }
+                });
+
+                document.getElementById('complexSelectedCounter').textContent = `${selectedComplexIndices.length} opsi dipilih`;
+            }
+        }
+
+        function evaluateSingleAnswer(selectedIdx) {
+            quizAnswered = true;
+            const q = quizQuestions[currentQuizIndex];
+            const isCorrect = selectedIdx === q.correct;
+
+            q.options.forEach((_, i) => {
+                const btn = document.getElementById(`quizOptBtn_${i}`);
+                if (i === q.correct) {
+                    btn.className = 'w-full text-left p-4 rounded-2xl bg-lime-300 border-3 border-slate-900 shadow-[0_4px_0_#1e293b] font-bold text-xs sm:text-sm text-slate-900 flex items-center justify-between gap-3';
+                } else if (i === selectedIdx && !isCorrect) {
+                    btn.className = 'w-full text-left p-4 rounded-2xl bg-rose-300 border-3 border-slate-900 shadow-[0_4px_0_#1e293b] font-bold text-xs sm:text-sm text-slate-900 flex items-center justify-between gap-3';
+                } else {
+                    btn.className = 'w-full text-left p-4 rounded-2xl bg-slate-100 opacity-60 border-3 border-slate-900 font-bold text-xs sm:text-sm text-slate-700 flex items-center justify-between gap-3';
+                }
+            });
+
+            showQuizFeedback(isCorrect, q.explanation);
+        }
+
+        function submitComplexAnswer() {
+            if (quizAnswered) return;
+            const q = quizQuestions[currentQuizIndex];
+
+            if (selectedComplexIndices.length === 0) {
+                playSound('wrong');
+                const expBox = document.getElementById('quizExplanationBox');
+                const expTitle = document.getElementById('quizExplanationTitle');
+                const expDesc = document.getElementById('quizExplanationDesc');
+                expBox.className = 'p-5 rounded-3xl border-3 border-slate-900 bg-amber-200 space-y-1 shadow-[0_4px_0_#1e293b]';
+                expTitle.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-amber-700"></i> Pilih Minimal Satu Opsi!';
+                expDesc.textContent = 'Silakan centang minimal satu jawaban sebelum mengunci jawaban kompleks.';
+                expBox.classList.remove('hidden');
+                return;
+            }
+
+            quizAnswered = true;
+            document.getElementById('btnSubmitComplex').disabled = true;
+            document.getElementById('btnSubmitComplex').classList.add('opacity-50', 'cursor-not-allowed');
+
+            const sortedSelected = [...selectedComplexIndices].sort((a, b) => a - b);
+            const sortedCorrect = [...q.correct].sort((a, b) => a - b);
+            const isCorrect = sortedSelected.length === sortedCorrect.length &&
+                sortedSelected.every((val, idx) => val === sortedCorrect[idx]);
+
+            q.options.forEach((_, i) => {
+                const btn = document.getElementById(`quizOptBtn_${i}`);
+                const isOptCorrect = q.correct.includes(i);
+                const isOptPicked = selectedComplexIndices.includes(i);
+
+                if (isOptCorrect && isOptPicked) {
+                    btn.className = 'w-full text-left p-4 rounded-2xl bg-lime-300 border-3 border-slate-900 shadow-[0_4px_0_#1e293b] font-bold text-xs sm:text-sm text-slate-900 flex items-center justify-between gap-3';
+                } else if (isOptCorrect && !isOptPicked) {
+                    btn.className = 'w-full text-left p-4 rounded-2xl bg-amber-200 border-3 border-slate-900 shadow-[0_4px_0_#1e293b] font-bold text-xs sm:text-sm text-slate-900 flex items-center justify-between gap-3';
+                } else if (!isOptCorrect && isOptPicked) {
+                    btn.className = 'w-full text-left p-4 rounded-2xl bg-rose-300 border-3 border-slate-900 shadow-[0_4px_0_#1e293b] font-bold text-xs sm:text-sm text-slate-900 flex items-center justify-between gap-3';
+                } else {
+                    btn.className = 'w-full text-left p-4 rounded-2xl bg-slate-100 opacity-60 border-3 border-slate-900 font-bold text-xs sm:text-sm text-slate-700 flex items-center justify-between gap-3';
+                }
+            });
+
+            showQuizFeedback(isCorrect, q.explanation);
+        }
+
+        function showQuizFeedback(isCorrect, explanationText) {
+            if (isCorrect) {
+                playSound('correct');
+                currentQuizScore += 5;
+                correctQuestionCount += 1;
+                document.getElementById('quizLiveScore').textContent = currentQuizScore;
+            } else {
+                playSound('wrong');
+            }
+
+            const expBox = document.getElementById('quizExplanationBox');
+            const expTitle = document.getElementById('quizExplanationTitle');
+            const expDesc = document.getElementById('quizExplanationDesc');
+
+            if (isCorrect) {
+                expBox.className = 'p-5 rounded-3xl border-3 border-slate-900 bg-lime-200 space-y-1.5 shadow-[0_4px_0_#1e293b]';
+                expTitle.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-700 text-lg"></i> <span class="text-slate-900">Jawaban Kamu Tepat! (+5 Poin)</span>';
+            } else {
+                expBox.className = 'p-5 rounded-3xl border-3 border-slate-900 bg-rose-200 space-y-1.5 shadow-[0_4px_0_#1e293b]';
+                expTitle.innerHTML = '<i class="fa-solid fa-circle-xmark text-rose-700 text-lg"></i> <span class="text-slate-900">Belum Tepat! Yuk Simak Pembahasannya:</span>';
+            }
+
+            expDesc.textContent = explanationText;
+            expBox.classList.remove('hidden');
+
+            const nextBtn = document.getElementById('btnNextQuestion');
+            nextBtn.innerHTML = currentQuizIndex < quizQuestions.length - 1
+                ? '<span>Soal Berikutnya</span><i class="fa-solid fa-arrow-right ml-1.5"></i>'
+                : '<span>Lihat Hasil Akhir Kuis</span><i class="fa-solid fa-flag-checkered ml-1.5"></i>';
+            nextBtn.classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            playSound('click');
+            if (currentQuizIndex < quizQuestions.length - 1) {
+                currentQuizIndex++;
+                renderQuizQuestion();
+            } else {
+                showQuizResult();
+            }
+        }
+
+        function showQuizResult() {
+            document.getElementById('quizActiveArea').classList.add('hidden');
+            document.getElementById('quizResultArea').classList.remove('hidden');
+
+            document.getElementById('quizFinalScoreDisplay').textContent = currentQuizScore;
+            document.getElementById('quizCorrectCountDisplay').textContent = `Benar ${correctQuestionCount} dari ${quizQuestions.length} Soal`;
+
+            const predEl = document.getElementById('quizFinalPredicate');
+            if (currentQuizScore >= 85) {
+                predEl.textContent = 'Luar biasa! Kamu sangat menguasai analisis sosiologis tentang masalah sosial akibat globalisasi dan era digital!';
+            } else if (currentQuizScore >= 70) {
+                predEl.textContent = 'Bagus sekali! Pemahamanmu sudah kuat, terus asah ketelitianmu pada soal Pilihan Ganda Kompleks.';
+            } else {
+                predEl.textContent = 'Tetap semangat! Yuk ulas kembali sub-tab Materi & Simulasi agar makin mahir membedakan konsep sosiologi.';
+            }
+
+            if (typeof confetti === 'function') {
+                confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
+            }
+        }
+
+        function restartQuiz() {
+            playSound('click');
+            currentQuizIndex = 0;
+            currentQuizScore = 0;
+            correctQuestionCount = 0;
+            document.getElementById('quizResultArea').classList.add('hidden');
+            document.getElementById('quizActiveArea').classList.remove('hidden');
+            renderQuizQuestion();
+        }
+
+        /* ==========================================================================
+           7. PAPAN REFLEKSI KOLABORATIF (STICKY NOTES KARTUN CERIA - BERSIH TANPA DUMMY)
+           ========================================================================== */
+        let reflectionsList = [];
+
+        function renderReflections() {
+            const wall = document.getElementById('stickyWall');
+            const countBadge = document.getElementById('refCountBadge');
+            const clearBtn = document.getElementById('btnClearReflections');
+
+            wall.innerHTML = '';
+            if (countBadge) {
+                countBadge.textContent = `📝 Total Catatan Masuk: ${reflectionsList.length}`;
+            }
+
+            if (reflectionsList.length === 0) {
+                if (clearBtn) clearBtn.classList.add('hidden');
+                wall.innerHTML = `
+                    <div class="col-span-1 sm:col-span-2 p-8 rounded-3xl bg-amber-50/70 border-3 border-dashed border-slate-900 text-center space-y-3" style="border: 3px dashed #1E293B;">
+                        <div class="w-16 h-16 rounded-2xl bg-yellow-300 border-2 border-slate-900 mx-auto flex items-center justify-center text-slate-900 text-2xl shadow-[0_4px_0_#1e293b]">
+                            <i class="fa-solid fa-note-sticky"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-base sm:text-lg">Papan Refleksi Masih Kosong</h4>
+                        <p class="text-xs sm:text-sm text-slate-700 font-semibold max-w-md mx-auto leading-relaxed">
+                            Belum ada catatan refleksi yang ditempelkan. Silakan isi formulir di samping untuk menambahkan hasil pengamatan masalah sosial di lingkungan sekitarmu!
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+
+            if (clearBtn) clearBtn.classList.remove('hidden');
+
+            reflectionsList.forEach((item, index) => {
+                const note = document.createElement('div');
+                note.className = `p-5 rounded-3xl border-3 border-slate-900 ${item.color} flex flex-col justify-between space-y-3 shadow-[0_6px_0_#1e293b] transition hover:-translate-y-1`;
+                note.style.border = '3px solid #1E293B';
+                note.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="font-bold text-slate-900 text-base">${item.name}</span>
+                            <button type="button" onclick="deleteReflection(${index})" title="Hapus catatan ini" class="w-7 h-7 rounded-full bg-white hover:bg-rose-200 border-2 border-slate-900 flex items-center justify-center transition">
+                                <i class="fa-solid fa-xmark text-rose-600 text-xs"></i>
+                            </button>
+                        </div>
+                        <span class="inline-block mt-1.5 px-3 py-0.5 rounded-full bg-white border-2 border-slate-900 text-xs text-slate-900 font-cartoon font-bold">
+                            ${item.mood}
+                        </span>
+                        <p class="text-xs sm:text-sm text-slate-900 font-semibold mt-3 leading-relaxed bg-white/70 p-3 rounded-2xl border-2 border-slate-900">
+                            "${item.message}"
+                        </p>
+                    </div>
+                    <div class="text-[11px] font-cartoon font-bold text-slate-700 pt-2 border-t-2 border-slate-900/20 flex justify-between">
+                        <span>📌 Refleksi Sosiologi XII</span>
+                        <span>${item.time || 'Baru saja'}</span>
+                    </div>
+                `;
+                wall.appendChild(note);
+            });
+        }
+
+        function submitReflection(event) {
+            event.preventDefault();
+            const nameInput = document.getElementById('refName');
+            const moodInput = document.getElementById('refMood');
+            const msgInput = document.getElementById('refMessage');
+
+            const colors = [
+                'bg-yellow-200',
+                'bg-sky-200',
+                'bg-pink-200',
+                'bg-lime-200',
+                'bg-purple-200',
+                'bg-orange-200'
+            ];
+            const randomColor = colors[reflectionsList.length % colors.length];
+            const nowTime = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+
+            reflectionsList.unshift({
+                name: nameInput.value.trim(),
+                mood: moodInput.value,
+                message: msgInput.value.trim(),
+                color: randomColor,
+                time: `Pukul ${nowTime}`
+            });
+
+            playSound('correct');
+            nameInput.value = '';
+            msgInput.value = '';
+            renderReflections();
+        }
+
+        function deleteReflection(idx) {
+            playSound('click');
+            reflectionsList.splice(idx, 1);
+            renderReflections();
+        }
+
+        function clearAllReflections() {
+            playSound('click');
+            reflectionsList = [];
+            renderReflections();
+        }
+
+        /* ==========================================================================
+           8. INITIALIZATION ON WINDOW LOAD
+           ========================================================================== */
+        window.onload = function () {
+            updateSimulation();
+            initSortingGame();
+            renderQuizQuestion();
+            renderReflections();
+        };
+    </script>
+</body>
+</html>
